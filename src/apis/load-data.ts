@@ -1,4 +1,4 @@
-import apiClient from "./client";
+import { apiClient } from ".";
 
 const loadData = async (path: string) => {
   try {

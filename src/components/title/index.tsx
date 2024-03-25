@@ -1,7 +1,7 @@
 import { useGetSearchPlace } from "@/hooks";
 
 const Title = () => {
-  const searchTerm = "가천";
+  const searchTerm = "강남";
   const { data } = useGetSearchPlace({ searchTerm });
   console.log("data", data);
   return (

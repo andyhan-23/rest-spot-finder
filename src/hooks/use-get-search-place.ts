@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import URL from "@/apis/constant";
 import { useGetSearchPlaceRequestType, SearchPlaceDataType } from "@/types";
-import loadData from "@/apis/load-data";
+import { loadData, URL } from "@/apis";
 
 const useGetSearchPlace = ({ searchTerm }: useGetSearchPlaceRequestType) => {
   const getSearch = async () => {
