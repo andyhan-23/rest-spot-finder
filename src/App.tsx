@@ -1,10 +1,11 @@
 import "./App.css";
-import { Logos } from "./components";
+import { Logos, Title } from "./components";
 
 function App() {
   return (
     <div className="flex h-full">
       <Logos />
+      <Title />
     </div>
   );
 }
