@@ -1,12 +1,13 @@
-import "./App.css";
 import { Logos, Title } from "./components";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient();
 function App() {
   return (
-    <div className="flex h-full">
+    <QueryClientProvider client={queryClient}>
       <Logos />
       <Title />
-    </div>
+    </QueryClientProvider>
   );
 }
 
