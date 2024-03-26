@@ -70,3 +70,33 @@ export type PathInfoContentPropsType = {
   ranking: number;
   route: PathInfoType;
 };
+
+export type useGetRestSpotsRequestType = {
+  routeId: number | undefined;
+};
+
+export type RestSpot = {
+  restAreaId: number;
+  name: string;
+  routeName: string;
+  routeDirection: "상행" | "하행" | "양방향";
+  lat: number;
+  lng: number;
+  type: string;
+  operatingStartTime: string;
+  operatingEndTime: string;
+  parkingSpaceCount: number;
+  isMaintenanceAvailable: boolean;
+  hasGasStation: boolean;
+  hasLpgChargingStation: boolean;
+  hasElectricChargingStation: boolean;
+  hasRestroom: boolean;
+  hasPharmacy: boolean;
+  hasNursingRoom: boolean;
+  hasStore: boolean;
+  hasRestaurant: boolean;
+  otherFacilities: string;
+  representativeFood: string;
+  phoneNumber: string;
+  naverMapUrl: string;
+};
