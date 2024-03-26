@@ -28,3 +28,38 @@ export type InputSubmitContentPropsType = {
 export type LoadingPropsType = {
   className?: string;
 };
+
+export type Route = {
+  coordinates: SearchPlaceDataType[];
+  createdDate: string;
+  distance: string;
+  duration: string;
+  fuelPrice: string;
+  optionText: string;
+  routeId?: number;
+  routeOption: string;
+  searchId: number;
+  tollFare: string;
+};
+
+export type PathInfoType = Omit<
+  Route,
+  "coordinates" | "createdDate" | "searchId" | "routeOption" | "routeId"
+>;
+
+export type PathInfoPropsType = {
+  routeList: Route[];
+  setRouteList: Dispatch<SetStateAction<Route[] | undefined>>;
+  selectedRoute: Route | undefined;
+  setSelectedRoute: Dispatch<SetStateAction<Route | undefined>>;
+  startPlace: SearchPlaceDataType | null;
+  goalPlace: SearchPlaceDataType | null;
+  clickedMorePath: boolean;
+  setClickedMorePath: Dispatch<SetStateAction<boolean>>;
+  setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export type PathInfoContentPropsType = {
+  ranking: number;
+  route: PathInfoType;
+};
