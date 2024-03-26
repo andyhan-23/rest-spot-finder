@@ -24,3 +24,7 @@ export type InputSubmitContentPropsType = {
   type: "start" | "goal";
   isReset: boolean;
 };
+
+export type LoadingPropsType = {
+  className?: string;
+};
