@@ -12,6 +12,12 @@ export type useGetSearchPlaceRequestType = {
   searchTerm: string | undefined;
 };
 
+export type useGetRoutesRequestType = {
+  start: string;
+  goal: string;
+  waypoints?: string[];
+  page: string;
+};
 export type InputSubmitPropsType = {
   setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
