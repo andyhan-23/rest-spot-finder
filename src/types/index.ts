@@ -18,6 +18,7 @@ export type useGetRoutesRequestType = {
   waypoints?: string[];
   page: string;
 };
+
 export type InputSubmitPropsType = {
   setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
