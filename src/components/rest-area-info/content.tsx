@@ -30,10 +30,10 @@ const RestAreaInfoContent = ({
       restArea: <NormalIcon className="h-8 w-14" />,
     },
     간이휴게소: {
-      restArea: <NatureIcon className="h-6 w-12" />,
+      restArea: <NatureIcon className="h-6 w-14" />,
     },
     화물차휴게소: {
-      restArea: <CargoIcon className="h-6 w-12" />,
+      restArea: <CargoIcon className="h-6 w-14" />,
     },
   };
   const Icon = typeMapping[type] || {
