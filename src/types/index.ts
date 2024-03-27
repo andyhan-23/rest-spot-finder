@@ -34,6 +34,8 @@ export type InputSubmitContentPropsType = {
   type: "start" | "goal";
   isReset: boolean;
   setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
+  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
+  setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export type LoadingPropsType = {
