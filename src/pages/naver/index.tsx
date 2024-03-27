@@ -1,7 +1,7 @@
-import { InitContainer } from "@/containers";
+import Init from "../../init";
 
 const NaverPage = () => {
-  return <InitContainer />;
+  return <Init />;
 };
 
 export default NaverPage;
