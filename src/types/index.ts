@@ -49,10 +49,7 @@ export type Route = {
   tollFare: string;
 };
 
-export type PathInfoType = Omit<
-  Route,
-  "coordinates" | "createdDate" | "searchId" | "routeOption" | "routeId"
->;
+export type PathInfoType = Omit<Route, "coordinates" | "createdDate" | "searchId" | "routeOption">;
 
 export type PathInfoPropsType = {
   routeList: Route[];
@@ -98,5 +95,22 @@ export type RestSpot = {
   otherFacilities: string;
   representativeFood: string;
   phoneNumber: string;
+  naverMapUrl: string;
+};
+
+export type RestAreaInfoPropsType = {
+  route: PathInfoType | undefined;
+  setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export type RestAreaInfoContentPropsType = {
+  type: string;
+  restaurant: boolean;
+  gasStation: boolean;
+  electricCar: boolean;
+  pharmacy: boolean;
+  toilet: boolean;
+  name: string;
+  routeName: string;
   naverMapUrl: string;
 };
