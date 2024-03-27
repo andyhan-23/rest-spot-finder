@@ -6,6 +6,7 @@ import {
   RestAreaInfo,
   Loading,
   Logos,
+  NaverMap,
 } from "@/components";
 import { useState, useEffect } from "react";
 import { SearchPlaceDataType, Route } from "@/types";
@@ -80,6 +81,15 @@ const Init = () => {
         {selectedRoute && restSpotModalOpen && (
           <RestAreaInfo route={selectedRoute} setRestSpotModalOpen={setRestSpotModalOpen} />
         )}
+        <NaverMap
+          start={startPlace}
+          goal={goalPlace}
+          routeList={routeList}
+          selectedRoute={selectedRoute}
+          setSelectedRoute={setSelectedRoute}
+          restSpotList={restSpotList}
+          restSpotModalOpen={restSpotModalOpen}
+        />
       </div>
     </div>
   );

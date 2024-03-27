@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type SearchPlaceDataType = {
-  name: string;
+  name?: string;
   lat: string;
   lng: string;
-  category: string;
-  address: string;
+  category?: string;
+  address?: string;
 };
 
 export type useGetSearchPlaceRequestType = {
@@ -113,4 +113,27 @@ export type RestAreaInfoContentPropsType = {
   name: string;
   routeName: string;
   naverMapUrl: string;
+};
+
+export type CustomMarkerPropsType = {
+  type?: "start" | "goal" | "waypoints";
+  waypointsIndex?: number;
+  position: { lat: number; lng: number };
+};
+
+export type RestSpotMarkerPropsType = {
+  position: { lat: number; lng: number };
+  clicked?: boolean;
+  onClick?: () => void;
+};
+
+export type NaverMapPropsType = {
+  start?: SearchPlaceDataType | null;
+  goal?: SearchPlaceDataType | null;
+  waypoints?: SearchPlaceDataType[];
+  routeList?: Route[];
+  selectedRoute?: Route;
+  setSelectedRoute: Dispatch<SetStateAction<Route | undefined>>;
+  restSpotList?: RestSpot[];
+  restSpotModalOpen: boolean;
 };
