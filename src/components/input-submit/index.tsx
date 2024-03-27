@@ -10,6 +10,7 @@ const InputSubmit = ({
   setRestSpotModalOpen,
   errorModalOpen,
   setErrorModalOpen,
+  setRouteListModalOpen,
 }: InputSubmitPropsType) => {
   const [wayPointPlaceholder, setWayPointPlaceholder] = useState("경유지 입력");
   const [wayPoints, setWayPoints] = useState<string[]>([]);
@@ -39,6 +40,7 @@ const InputSubmit = ({
     setIsReset(true);
     setRestSpotModalOpen(false);
     setErrorModalOpen(false);
+    setRouteListModalOpen(false);
   };
   useEffect(() => {
     isReset && setIsReset(false);

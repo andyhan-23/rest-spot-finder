@@ -25,6 +25,7 @@ export type InputSubmitPropsType = {
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
+  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
   errorModalOpen: boolean;
 };
 
@@ -64,6 +65,7 @@ export type PathInfoPropsType = {
   clickedMorePath: boolean;
   setClickedMorePath: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  routeListModalOpen: boolean;
 };
 
 export type PathInfoContentPropsType = {
