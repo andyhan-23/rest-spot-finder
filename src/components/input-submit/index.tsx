@@ -8,6 +8,9 @@ const InputSubmit = ({
   setGoalPlace,
   handleClickSearchRoutes,
   setRestSpotModalOpen,
+  errorModalOpen,
+  setErrorModalOpen,
+  setRouteListModalOpen,
 }: InputSubmitPropsType) => {
   const [wayPointPlaceholder, setWayPointPlaceholder] = useState("경유지 입력");
   const [wayPoints, setWayPoints] = useState<string[]>([]);
@@ -36,6 +39,8 @@ const InputSubmit = ({
     setGoalPlace(null);
     setIsReset(true);
     setRestSpotModalOpen(false);
+    setErrorModalOpen(false);
+    setRouteListModalOpen(false);
   };
   useEffect(() => {
     isReset && setIsReset(false);
@@ -44,7 +49,14 @@ const InputSubmit = ({
   return (
     <div className="relative flex w-96 flex-col gap-3 bg-white px-8 py-6">
       <div className="flex w-full flex-col">
-        <InputSubmitContent setPlace={setStartPlace} type={"start"} isReset={isReset} />
+        <InputSubmitContent
+          setErrorModalOpen={setErrorModalOpen}
+          setPlace={setStartPlace}
+          type={"start"}
+          isReset={isReset}
+          setRouteListModalOpen={setRouteListModalOpen}
+          setRestSpotModalOpen={setRestSpotModalOpen}
+        />
         {wayPoints.map((waypoint, index) => (
           <div key={index} className="relative">
             <input
@@ -67,7 +79,14 @@ const InputSubmit = ({
             </button>
           </div>
         ))}
-        <InputSubmitContent setPlace={setGoalPlace} type={"goal"} isReset={isReset} />
+        <InputSubmitContent
+          setErrorModalOpen={setErrorModalOpen}
+          setPlace={setGoalPlace}
+          type={"goal"}
+          isReset={isReset}
+          setRouteListModalOpen={setRouteListModalOpen}
+          setRestSpotModalOpen={setRestSpotModalOpen}
+        />
       </div>
       <div className="flex w-full justify-between bg-white">
         <button
@@ -92,6 +111,11 @@ const InputSubmit = ({
           <RightIcon className="h-6 w-6" />
         </button>
       </div>
+      {errorModalOpen && (
+        <div className=" flex justify-center  ">
+          <h1 className="mt-3 font-bold text-red-600">출발지와 도착지를 모두 입력하세요!</h1>
+        </div>
+      )}
     </div>
   );
 };

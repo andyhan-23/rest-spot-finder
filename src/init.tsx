@@ -19,6 +19,8 @@ const Init = () => {
   const [selectedRoute, setSelectedRoute] = useState<Route>();
   const [clickedMorePath, setClickedMorePath] = useState<boolean>(false);
   const [restSpotModalOpen, setRestSpotModalOpen] = useState<boolean>(false);
+  const [errorModalOpen, setErrorModalOpen] = useState<boolean>(false);
+  const [routeListModalOpen, setRouteListModalOpen] = useState<boolean>(false);
 
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
@@ -35,9 +37,10 @@ const Init = () => {
     if (startPlace && goalPlace) {
       const routes = await routesRefetch();
       setClickedMorePath(false);
+      setRouteListModalOpen(true);
       setRouteList(routes.data);
       routes.data && setSelectedRoute(routes.data[0]);
-    }
+    } else if (!startPlace || !goalPlace) setErrorModalOpen(true);
   };
 
   useEffect(() => {
@@ -55,12 +58,15 @@ const Init = () => {
             setGoalPlace={setGoalPlace}
             handleClickSearchRoutes={handleClickSearchRoutes}
             setRestSpotModalOpen={setRestSpotModalOpen}
+            errorModalOpen={errorModalOpen}
+            setErrorModalOpen={setErrorModalOpen}
+            setRouteListModalOpen={setRouteListModalOpen}
           />
           {isGetRoutesLoading ? (
             <Loading className="h-full" />
           ) : (
             <>
-              {routeList ? (
+              {routeList && routeListModalOpen ? (
                 <PathInfo
                   routeList={routeList}
                   setRouteList={setRouteList}
@@ -71,6 +77,7 @@ const Init = () => {
                   clickedMorePath={clickedMorePath}
                   setClickedMorePath={setClickedMorePath}
                   setRestSpotModalOpen={setRestSpotModalOpen}
+                  routeListModalOpen={routeListModalOpen}
                 />
               ) : (
                 <RecentSearch />

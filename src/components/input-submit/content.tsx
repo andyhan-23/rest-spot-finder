@@ -14,7 +14,14 @@ const inputType = {
   },
 };
 
-const InputSubmitContent = ({ setPlace, type, isReset }: InputSubmitContentPropsType) => {
+const InputSubmitContent = ({
+  setPlace,
+  type,
+  isReset,
+  setErrorModalOpen,
+  setRouteListModalOpen,
+  setRestSpotModalOpen,
+}: InputSubmitContentPropsType) => {
   const [placeholder, setPlaceholder] = useState<string>(inputType.placeholder[type]);
   const [searchedPlace, setSearchedPlace] = useState<string>("");
   const [placeList, setPlaceList] = useState<SearchPlaceDataType[] | undefined>([]);
@@ -24,6 +31,9 @@ const InputSubmitContent = ({ setPlace, type, isReset }: InputSubmitContentProps
 
   const handleFocus = () => {
     setPlaceholder(inputType.onFocus[type]);
+    setErrorModalOpen(false);
+    setRouteListModalOpen(false);
+    setRestSpotModalOpen(false);
   };
   const handleBlur = () => {
     setPlaceholder(inputType.placeholder[type]);
