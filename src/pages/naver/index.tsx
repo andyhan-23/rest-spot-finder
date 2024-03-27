@@ -1,11 +1,7 @@
-import { Logos } from "@/components";
+import Init from "../../init";
 
 const NaverPage = () => {
-  return (
-    <div className="flex h-full">
-      <Logos />
-    </div>
-  );
+  return <Init />;
 };
 
 export default NaverPage;
