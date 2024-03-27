@@ -1,11 +1,7 @@
-import { Logos } from "@/components";
+import { InitContainer } from "@/containers";
 
 const NaverPage = () => {
-  return (
-    <div className="flex h-full">
-      <Logos />
-    </div>
-  );
+  return <InitContainer />;
 };
 
 export default NaverPage;
