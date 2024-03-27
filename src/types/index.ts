@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type SearchPlaceDataType = {
-  name?: string;
+  name: string;
   lat: string;
   lng: string;
   category?: string;
@@ -24,12 +24,15 @@ export type InputSubmitPropsType = {
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
+  errorModalOpen: boolean;
 };
 
 export type InputSubmitContentPropsType = {
   setPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   type: "start" | "goal";
   isReset: boolean;
+  setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export type LoadingPropsType = {
