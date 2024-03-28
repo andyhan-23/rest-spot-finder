@@ -36,6 +36,8 @@ export type InputSubmitContentPropsType = {
   setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
   setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
 };
 
 export type LoadingPropsType = {

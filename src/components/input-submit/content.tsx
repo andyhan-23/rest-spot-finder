@@ -21,6 +21,8 @@ const InputSubmitContent = ({
   setErrorModalOpen,
   setRouteListModalOpen,
   setRestSpotModalOpen,
+  setStartPlace,
+  setGoalPlace,
 }: InputSubmitContentPropsType) => {
   const [placeholder, setPlaceholder] = useState<string>(inputType.placeholder[type]);
   const [searchedPlace, setSearchedPlace] = useState<string>("");
@@ -34,6 +36,8 @@ const InputSubmitContent = ({
     setErrorModalOpen(false);
     setRouteListModalOpen(false);
     setRestSpotModalOpen(false);
+    if (type === "start") setStartPlace(null);
+    else if (type === "goal") setGoalPlace(null);
   };
   const handleBlur = () => {
     setPlaceholder(inputType.placeholder[type]);

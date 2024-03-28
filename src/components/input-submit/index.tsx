@@ -56,6 +56,8 @@ const InputSubmit = ({
           isReset={isReset}
           setRouteListModalOpen={setRouteListModalOpen}
           setRestSpotModalOpen={setRestSpotModalOpen}
+          setStartPlace={setStartPlace}
+          setGoalPlace={setGoalPlace}
         />
         {wayPoints.map((waypoint, index) => (
           <div key={index} className="relative">
@@ -86,6 +88,8 @@ const InputSubmit = ({
           isReset={isReset}
           setRouteListModalOpen={setRouteListModalOpen}
           setRestSpotModalOpen={setRestSpotModalOpen}
+          setStartPlace={setStartPlace}
+          setGoalPlace={setGoalPlace}
         />
       </div>
       <div className="flex w-full justify-between bg-white">
