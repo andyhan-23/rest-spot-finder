@@ -1,10 +1,16 @@
 import { Marker } from "react-naver-maps";
 import { RestSpotMarkerPropsType } from "@/types";
 
-const RestSpotMarker = ({ position, clicked, onClick }: RestSpotMarkerPropsType) => {
+const RestSpotMarker = ({
+  position,
+  clicked,
+  onMouseEnter,
+  onMouseLeave,
+}: RestSpotMarkerPropsType) => {
   return (
     <Marker
-      onClick={onClick}
+      onMouseover={onMouseEnter}
+      onMouseout={onMouseLeave}
       defaultPosition={position}
       icon={{
         content: [
