@@ -24,11 +24,14 @@ const Init = () => {
   const [restSpotName, setRestSpotName] = useState<string>("");
   const [isMapping, setIsMapping] = useState<boolean>(false);
 
+  // console.log("출발지 확인", startPlace);
+  // console.log("도착지 확인", goalPlace);
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
     goal: [goalPlace?.lng, goalPlace?.lat].join(","),
     // waypoints: waypoints.map(waypoint => [waypoint.lng, waypoint.lat].join(",")),
     page: "1",
+    isTest: true,
   });
 
   const { data: restSpotList, refetch: restSpotsRefetch } = useGetRestSpots({

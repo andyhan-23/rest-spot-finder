@@ -17,6 +17,7 @@ export type useGetRoutesRequestType = {
   goal: string;
   waypoints?: string[];
   page: string;
+  isTest: boolean;
 };
 
 export type InputSubmitPropsType = {
