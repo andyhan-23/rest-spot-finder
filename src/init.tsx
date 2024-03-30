@@ -21,8 +21,7 @@ const Init = () => {
   const [restSpotModalOpen, setRestSpotModalOpen] = useState<boolean>(false);
   const [hasStartAndGoal, setHasStartAndGoal] = useState<boolean>(true);
   const [showRouteList, setShowRouteList] = useState<boolean>(false);
-  const [restSpotName, setRestSpotName] = useState<string>("");
-  const [isMapping, setIsMapping] = useState<boolean>(false);
+  const [hoveredRestSpot, setHoveredRestSpot] = useState<string>("");
 
   // console.log("출발지 확인", startPlace);
   // console.log("도착지 확인", goalPlace);
@@ -95,9 +94,7 @@ const Init = () => {
           <RestAreaInfo
             route={selectedRoute}
             setRestSpotModalOpen={setRestSpotModalOpen}
-            restSpotName={restSpotName}
-            isMapping={isMapping}
-            setIsMapping={setIsMapping}
+            hoveredRestSpot={hoveredRestSpot}
           />
         )}
         <NaverMap
@@ -108,8 +105,7 @@ const Init = () => {
           setSelectedRoute={setSelectedRoute}
           restSpotList={restSpotList}
           restSpotModalOpen={restSpotModalOpen}
-          setIsMapping={setIsMapping}
-          setRestSpotName={setRestSpotName}
+          setHoveredRestSpot={setHoveredRestSpot}
         />
       </div>
     </div>

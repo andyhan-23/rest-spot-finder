@@ -110,9 +110,7 @@ export type RestSpot = {
 export type RestAreaInfoPropsType = {
   route: PathInfoType | undefined;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
-  restSpotName: string;
-  isMapping: boolean;
-  setIsMapping: Dispatch<SetStateAction<boolean>>;
+  hoveredRestSpot: string;
 };
 
 export type RestAreaInfoContentPropsType = {
@@ -125,8 +123,7 @@ export type RestAreaInfoContentPropsType = {
   name: string;
   routeName: string;
   naverMapUrl: string;
-  restSpotName: string;
-  isMapping: boolean;
+  hoveredRestSpot: string;
 };
 
 export type CustomMarkerPropsType = {
@@ -138,6 +135,7 @@ export type CustomMarkerPropsType = {
 export type RestSpotMarkerPropsType = {
   position: { lat: number; lng: number };
   clicked?: boolean;
+  onClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 };
@@ -151,6 +149,5 @@ export type NaverMapPropsType = {
   setSelectedRoute: Dispatch<SetStateAction<Route | undefined>>;
   restSpotList?: RestSpot[];
   restSpotModalOpen: boolean;
-  setIsMapping: Dispatch<SetStateAction<boolean>>;
-  setRestSpotName: Dispatch<SetStateAction<string>>;
+  setHoveredRestSpot: Dispatch<SetStateAction<string>>;
 };

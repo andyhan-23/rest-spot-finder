@@ -6,12 +6,7 @@ import { useGetRestSpots } from "@/hooks";
 import { DoubleLeftArrow } from "@/assets/icons";
 import { Loading } from "..";
 
-const RestAreaInfo = ({
-  route,
-  setRestSpotModalOpen,
-  restSpotName,
-  isMapping,
-}: RestAreaInfoPropsType) => {
+const RestAreaInfo = ({ route, setRestSpotModalOpen, hoveredRestSpot }: RestAreaInfoPropsType) => {
   const [restAreaList, setRestAreaList] = useState<RestSpot[] | undefined>();
   const {
     data: restAreaListData,
@@ -61,8 +56,7 @@ const RestAreaInfo = ({
                       name={value.name}
                       routeName={value.routeName}
                       naverMapUrl={value.naverMapUrl}
-                      restSpotName={restSpotName}
-                      isMapping={isMapping}
+                      hoveredRestSpot={hoveredRestSpot}
                     />
                     {index !== restAreaList.length - 1 && <hr />}
                   </Fragment>

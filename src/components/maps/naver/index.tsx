@@ -12,8 +12,7 @@ const NaverMapService = ({
   setSelectedRoute,
   restSpotList,
   restSpotModalOpen,
-  setRestSpotName,
-  setIsMapping,
+  setHoveredRestSpot,
 }: NaverMapPropsType) => {
   const navermaps = useNavermaps();
   const mapRef = useRef<naver.maps.Map>(null);
@@ -36,13 +35,11 @@ const NaverMapService = ({
   };
 
   const handleEnterRestSpotMarker = (spot: RestSpot) => {
-    setRestSpotClicked(spot);
-    setRestSpotName(spot.name);
-    setIsMapping(true);
+    setHoveredRestSpot(spot.name);
   };
 
   const handleLeaveRestSpotMarker = () => {
-    setIsMapping(false);
+    setHoveredRestSpot("");
   };
   return (
     <MapDiv style={{ width: "100%", height: "100dvh" }}>
@@ -92,6 +89,7 @@ const NaverMapService = ({
                   lat: spot.lat,
                   lng: spot.lng,
                 }}
+                onClick={() => setRestSpotClicked(spot)}
                 onMouseEnter={() => handleEnterRestSpotMarker(spot)}
                 onMouseLeave={handleLeaveRestSpotMarker}
                 clicked={restSpotClicked?.restAreaId === spot.restAreaId}
