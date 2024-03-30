@@ -26,7 +26,7 @@ export type InputSubmitPropsType = {
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
-  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
+  setShowRouteList: Dispatch<SetStateAction<boolean>>;
   hasStartAndGoal: boolean;
 };
 
@@ -35,7 +35,7 @@ export type InputSubmitContentPropsType = {
   type: "start" | "goal";
   isReset: boolean;
   setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
-  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
+  setShowRouteList: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
@@ -70,7 +70,6 @@ export type PathInfoPropsType = {
   clickedMorePath: boolean;
   setClickedMorePath: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
-  routeListModalOpen: boolean;
 };
 
 export type PathInfoContentPropsType = {

@@ -19,7 +19,7 @@ const InputSubmitContent = ({
   type,
   isReset,
   setHasStartAndGoal,
-  setRouteListModalOpen,
+  setShowRouteList,
   setRestSpotModalOpen,
   setStartPlace,
   setGoalPlace,
@@ -44,7 +44,7 @@ const InputSubmitContent = ({
     e.target.value !== "" && setHasStartAndGoal(true);
     setSearchedPlace(e.target.value);
     if (e.target.value! == searchedPlace) {
-      setRouteListModalOpen(false);
+      setShowRouteList(false);
       setRestSpotModalOpen(false);
       if (type === "start") setStartPlace(null);
       else if (type === "goal") setGoalPlace(null);
