@@ -8,8 +8,8 @@ const InputSubmit = ({
   setGoalPlace,
   handleClickSearchRoutes,
   setRestSpotModalOpen,
-  errorModalOpen,
-  setErrorModalOpen,
+  hasStartAndGoal,
+  setHasStartAndGoal,
   setRouteListModalOpen,
 }: InputSubmitPropsType) => {
   const [wayPointPlaceholder, setWayPointPlaceholder] = useState("경유지 입력");
@@ -39,7 +39,7 @@ const InputSubmit = ({
     setGoalPlace(null);
     setIsReset(true);
     setRestSpotModalOpen(false);
-    setErrorModalOpen(false);
+    setHasStartAndGoal(true);
     setRouteListModalOpen(false);
   };
   useEffect(() => {
@@ -50,7 +50,7 @@ const InputSubmit = ({
     <div className="relative flex w-96 flex-col gap-3 bg-white px-8 py-6">
       <div className="flex w-full flex-col">
         <InputSubmitContent
-          setErrorModalOpen={setErrorModalOpen}
+          setHasStartAndGoal={setHasStartAndGoal}
           setPlace={setStartPlace}
           type={"start"}
           isReset={isReset}
@@ -82,7 +82,7 @@ const InputSubmit = ({
           </div>
         ))}
         <InputSubmitContent
-          setErrorModalOpen={setErrorModalOpen}
+          setHasStartAndGoal={setHasStartAndGoal}
           setPlace={setGoalPlace}
           type={"goal"}
           isReset={isReset}
@@ -115,7 +115,7 @@ const InputSubmit = ({
           <RightIcon className="h-6 w-6" />
         </button>
       </div>
-      {errorModalOpen && (
+      {!hasStartAndGoal && (
         <div className=" flex justify-center  ">
           <h1 className="mt-3 font-bold text-red-600">출발지와 도착지를 모두 입력하세요!</h1>
         </div>

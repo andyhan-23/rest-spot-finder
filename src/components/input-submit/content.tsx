@@ -18,7 +18,7 @@ const InputSubmitContent = ({
   setPlace,
   type,
   isReset,
-  setErrorModalOpen,
+  setHasStartAndGoal,
   setRouteListModalOpen,
   setRestSpotModalOpen,
   setStartPlace,
@@ -33,7 +33,7 @@ const InputSubmitContent = ({
 
   const handleFocus = () => {
     setPlaceholder(inputType.onFocus[type]);
-    setErrorModalOpen(false);
+
     setRouteListModalOpen(false);
     setRestSpotModalOpen(false);
     if (type === "start") setStartPlace(null);
@@ -44,6 +44,7 @@ const InputSubmitContent = ({
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value === "" ? setPlaceList([]) : setModalIsOpen(true);
+    e.target.value !== "" && setHasStartAndGoal(true);
     setSearchedPlace(e.target.value);
   };
   const handleClickPlace = (place: SearchPlaceDataType) => {
