@@ -43,7 +43,7 @@ const InputSubmitContent = ({
     e.target.value === "" ? setPlaceList([]) : setModalIsOpen(true);
     e.target.value !== "" && setHasStartAndGoal(true);
     setSearchedPlace(e.target.value);
-    if (e.target.value! == searchedPlace) {
+    if (e.target.value !== searchedPlace) {
       setShowRouteList(false);
       setRestSpotModalOpen(false);
       if (type === "start") setStartPlace(null);
