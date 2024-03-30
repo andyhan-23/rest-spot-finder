@@ -1,7 +1,7 @@
 import { useDebounce, useGetSearchPlace } from "@/hooks";
 import { LocationIcon } from "@/assets/icons";
 import { InputSubmitContentPropsType, SearchPlaceDataType } from "@/types";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
 
 const inputType = {
   placeholder: {
@@ -33,21 +33,32 @@ const InputSubmitContent = ({
 
   const handleFocus = () => {
     setPlaceholder(inputType.onFocus[type]);
-
-    setRouteListModalOpen(false);
-    setRestSpotModalOpen(false);
-    if (type === "start") setStartPlace(null);
-    else if (type === "goal") setGoalPlace(null);
+    setModalIsOpen(true);
   };
   const handleBlur = () => {
     setPlaceholder(inputType.placeholder[type]);
+    setModalIsOpen(false);
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.value === "" ? setPlaceList([]) : setModalIsOpen(true);
     e.target.value !== "" && setHasStartAndGoal(true);
     setSearchedPlace(e.target.value);
+    if (e.target.value! == searchedPlace) {
+      setRouteListModalOpen(false);
+      setRestSpotModalOpen(false);
+      if (type === "start") setStartPlace(null);
+      else if (type === "goal") setGoalPlace(null);
+    }
   };
-  const handleClickPlace = (place: SearchPlaceDataType) => {
+
+  const handleClickPlace = ({
+    e,
+    place,
+  }: {
+    e: MouseEvent<HTMLDivElement>;
+    place: SearchPlaceDataType;
+  }) => {
+    e.stopPropagation();
     setPlace(place);
     setSearchedPlace(place.name);
     setPlaceList([]);
@@ -81,7 +92,7 @@ const InputSubmitContent = ({
             <div key={index}>
               <div
                 className="flex w-full items-center gap-4 px-4 py-3 hover:bg-gray-300 hover:bg-opacity-30"
-                onClick={() => handleClickPlace(place)}
+                onMouseDown={e => handleClickPlace({ e, place })}
               >
                 <LocationIcon className="h-5 w-5 shrink-0" />
                 <div className="flex w-full flex-col items-center gap-2">
