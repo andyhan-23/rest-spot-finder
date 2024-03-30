@@ -13,6 +13,8 @@ const NaverMapService = ({
   restSpotList,
   restSpotModalOpen,
   setHoveredRestSpot,
+  clickedFindRoute,
+  setClickedFindRoute,
 }: NaverMapPropsType) => {
   const navermaps = useNavermaps();
   const mapRef = useRef<naver.maps.Map>(null);
@@ -29,6 +31,14 @@ const NaverMapService = ({
     goal &&
       mapRef.current?.setCenter(new naver.maps.LatLng(parseFloat(goal.lat), parseFloat(goal.lng)));
   }, [goal, mapRef]);
+
+  useEffect(() => {
+    if (clickedFindRoute) {
+      mapRef.current?.setZoom(8);
+      mapRef.current?.setCenter(new naver.maps.LatLng(36.5, 127.9));
+      setClickedFindRoute(false);
+    }
+  }, [clickedFindRoute, setClickedFindRoute]);
 
   const handleClickRoute = (routeOption: string) => {
     setSelectedRoute(routeList?.find(route => route.routeOption === routeOption));

@@ -22,6 +22,7 @@ const Init = () => {
   const [hasStartAndGoal, setHasStartAndGoal] = useState<boolean>(true);
   const [showRouteList, setShowRouteList] = useState<boolean>(false);
   const [hoveredRestSpot, setHoveredRestSpot] = useState<string>("");
+  const [clickedFindRoute, setClickedFindRoute] = useState<boolean>(false);
 
   // console.log("출발지 확인", startPlace);
   // console.log("도착지 확인", goalPlace);
@@ -44,6 +45,8 @@ const Init = () => {
       setShowRouteList(true);
       setRouteList(routes.data);
       routes.data && setSelectedRoute(routes.data[0]);
+      setHasStartAndGoal(true);
+      setClickedFindRoute(true);
     } else {
       setHasStartAndGoal(false);
     }
@@ -106,6 +109,8 @@ const Init = () => {
           restSpotList={restSpotList}
           restSpotModalOpen={restSpotModalOpen}
           setHoveredRestSpot={setHoveredRestSpot}
+          clickedFindRoute={clickedFindRoute}
+          setClickedFindRoute={setClickedFindRoute}
         />
       </div>
     </div>

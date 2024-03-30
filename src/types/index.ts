@@ -150,4 +150,6 @@ export type NaverMapPropsType = {
   restSpotList?: RestSpot[];
   restSpotModalOpen: boolean;
   setHoveredRestSpot: Dispatch<SetStateAction<string>>;
+  clickedFindRoute: boolean;
+  setClickedFindRoute: Dispatch<SetStateAction<boolean>>;
 };
