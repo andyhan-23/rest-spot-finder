@@ -12,6 +12,9 @@ const NaverMapService = ({
   setSelectedRoute,
   restSpotList,
   restSpotModalOpen,
+  setHoveredRestSpot,
+  clickedFindRoute,
+  setClickedFindRoute,
 }: NaverMapPropsType) => {
   const navermaps = useNavermaps();
   const mapRef = useRef<naver.maps.Map>(null);
@@ -29,10 +32,25 @@ const NaverMapService = ({
       mapRef.current?.setCenter(new naver.maps.LatLng(parseFloat(goal.lat), parseFloat(goal.lng)));
   }, [goal, mapRef]);
 
+  useEffect(() => {
+    if (clickedFindRoute) {
+      mapRef.current?.setZoom(8);
+      mapRef.current?.setCenter(new naver.maps.LatLng(36.5, 127.9));
+      setClickedFindRoute(false);
+    }
+  }, [clickedFindRoute, setClickedFindRoute]);
+
   const handleClickRoute = (routeOption: string) => {
     setSelectedRoute(routeList?.find(route => route.routeOption === routeOption));
   };
 
+  const handleEnterRestSpotMarker = (spot: RestSpot) => {
+    setHoveredRestSpot(spot.name);
+  };
+
+  const handleLeaveRestSpotMarker = () => {
+    setHoveredRestSpot("");
+  };
   return (
     <MapDiv style={{ width: "100%", height: "100dvh" }}>
       <NaverMap
@@ -82,6 +100,8 @@ const NaverMapService = ({
                   lng: spot.lng,
                 }}
                 onClick={() => setRestSpotClicked(spot)}
+                onMouseEnter={() => handleEnterRestSpotMarker(spot)}
+                onMouseLeave={handleLeaveRestSpotMarker}
                 clicked={restSpotClicked?.restAreaId === spot.restAreaId}
                 key={spot.restAreaId}
               />

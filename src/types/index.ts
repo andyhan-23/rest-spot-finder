@@ -17,6 +17,7 @@ export type useGetRoutesRequestType = {
   goal: string;
   waypoints?: string[];
   page: string;
+  isTest: boolean;
 };
 
 export type InputSubmitPropsType = {
@@ -24,18 +25,20 @@ export type InputSubmitPropsType = {
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
-  setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
-  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
-  errorModalOpen: boolean;
+  setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
+  setShowRouteList: Dispatch<SetStateAction<boolean>>;
+  hasStartAndGoal: boolean;
 };
 
 export type InputSubmitContentPropsType = {
   setPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   type: "start" | "goal";
   isReset: boolean;
-  setErrorModalOpen: Dispatch<SetStateAction<boolean>>;
-  setRouteListModalOpen: Dispatch<SetStateAction<boolean>>;
+  setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
+  setShowRouteList: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
 };
 
 export type LoadingPropsType = {
@@ -67,7 +70,6 @@ export type PathInfoPropsType = {
   clickedMorePath: boolean;
   setClickedMorePath: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
-  routeListModalOpen: boolean;
 };
 
 export type PathInfoContentPropsType = {
@@ -108,6 +110,7 @@ export type RestSpot = {
 export type RestAreaInfoPropsType = {
   route: PathInfoType | undefined;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  hoveredRestSpot: string;
 };
 
 export type RestAreaInfoContentPropsType = {
@@ -120,6 +123,7 @@ export type RestAreaInfoContentPropsType = {
   name: string;
   routeName: string;
   naverMapUrl: string;
+  hoveredRestSpot: string;
 };
 
 export type CustomMarkerPropsType = {
@@ -132,6 +136,8 @@ export type RestSpotMarkerPropsType = {
   position: { lat: number; lng: number };
   clicked?: boolean;
   onClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 };
 
 export type NaverMapPropsType = {
@@ -143,4 +149,7 @@ export type NaverMapPropsType = {
   setSelectedRoute: Dispatch<SetStateAction<Route | undefined>>;
   restSpotList?: RestSpot[];
   restSpotModalOpen: boolean;
+  setHoveredRestSpot: Dispatch<SetStateAction<string>>;
+  clickedFindRoute: boolean;
+  setClickedFindRoute: Dispatch<SetStateAction<boolean>>;
 };

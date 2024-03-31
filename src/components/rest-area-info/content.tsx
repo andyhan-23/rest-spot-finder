@@ -20,6 +20,7 @@ const RestAreaInfoContent = ({
   name,
   routeName,
   naverMapUrl,
+  hoveredRestSpot,
 }: RestAreaInfoContentPropsType) => {
   const typeMapping: {
     [key: string]: {
@@ -45,7 +46,7 @@ const RestAreaInfoContent = ({
 
   return (
     <div
-      className="relative flex w-full gap-5 px-4 py-4 hover:bg-emerald-100"
+      className={`relative flex w-full gap-5 px-4 py-4 hover:bg-emerald-100 ${hoveredRestSpot === name && "bg-emerald-100"}`}
       onClick={handleUrlClick}
     >
       <div className="flex h-12 w-12 shrink-0 items-center rounded-full bg-gray-100 ">

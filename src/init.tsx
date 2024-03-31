@@ -19,14 +19,19 @@ const Init = () => {
   const [selectedRoute, setSelectedRoute] = useState<Route>();
   const [clickedMorePath, setClickedMorePath] = useState<boolean>(false);
   const [restSpotModalOpen, setRestSpotModalOpen] = useState<boolean>(false);
-  const [errorModalOpen, setErrorModalOpen] = useState<boolean>(false);
-  const [routeListModalOpen, setRouteListModalOpen] = useState<boolean>(false);
+  const [hasStartAndGoal, setHasStartAndGoal] = useState<boolean>(true);
+  const [showRouteList, setShowRouteList] = useState<boolean>(false);
+  const [hoveredRestSpot, setHoveredRestSpot] = useState<string>("");
+  const [clickedFindRoute, setClickedFindRoute] = useState<boolean>(false);
 
+  // console.log("출발지 확인", startPlace);
+  // console.log("도착지 확인", goalPlace);
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
     goal: [goalPlace?.lng, goalPlace?.lat].join(","),
     // waypoints: waypoints.map(waypoint => [waypoint.lng, waypoint.lat].join(",")),
     page: "1",
+    isTest: true,
   });
 
   const { data: restSpotList, refetch: restSpotsRefetch } = useGetRestSpots({
@@ -37,10 +42,14 @@ const Init = () => {
     if (startPlace && goalPlace) {
       const routes = await routesRefetch();
       setClickedMorePath(false);
-      setRouteListModalOpen(true);
+      setShowRouteList(true);
       setRouteList(routes.data);
       routes.data && setSelectedRoute(routes.data[0]);
-    } else if (!startPlace || !goalPlace) setErrorModalOpen(true);
+      setHasStartAndGoal(true);
+      setClickedFindRoute(true);
+    } else {
+      setHasStartAndGoal(false);
+    }
   };
 
   useEffect(() => {
@@ -58,15 +67,15 @@ const Init = () => {
             setGoalPlace={setGoalPlace}
             handleClickSearchRoutes={handleClickSearchRoutes}
             setRestSpotModalOpen={setRestSpotModalOpen}
-            errorModalOpen={errorModalOpen}
-            setErrorModalOpen={setErrorModalOpen}
-            setRouteListModalOpen={setRouteListModalOpen}
+            hasStartAndGoal={hasStartAndGoal}
+            setHasStartAndGoal={setHasStartAndGoal}
+            setShowRouteList={setShowRouteList}
           />
           {isGetRoutesLoading ? (
             <Loading className="h-full" />
           ) : (
             <>
-              {routeList && routeListModalOpen ? (
+              {routeList && showRouteList ? (
                 <PathInfo
                   routeList={routeList}
                   setRouteList={setRouteList}
@@ -77,7 +86,6 @@ const Init = () => {
                   clickedMorePath={clickedMorePath}
                   setClickedMorePath={setClickedMorePath}
                   setRestSpotModalOpen={setRestSpotModalOpen}
-                  routeListModalOpen={routeListModalOpen}
                 />
               ) : (
                 <RecentSearch />
@@ -86,7 +94,11 @@ const Init = () => {
           )}
         </div>
         {selectedRoute && restSpotModalOpen && (
-          <RestAreaInfo route={selectedRoute} setRestSpotModalOpen={setRestSpotModalOpen} />
+          <RestAreaInfo
+            route={selectedRoute}
+            setRestSpotModalOpen={setRestSpotModalOpen}
+            hoveredRestSpot={hoveredRestSpot}
+          />
         )}
         <NaverMap
           start={startPlace}
@@ -96,6 +108,9 @@ const Init = () => {
           setSelectedRoute={setSelectedRoute}
           restSpotList={restSpotList}
           restSpotModalOpen={restSpotModalOpen}
+          setHoveredRestSpot={setHoveredRestSpot}
+          clickedFindRoute={clickedFindRoute}
+          setClickedFindRoute={setClickedFindRoute}
         />
       </div>
     </div>
