@@ -14,6 +14,7 @@
 ## Preview
 <img width="1421" alt="스크린샷 2024-04-10 오후 1 17 11" src="https://github.com/andyhan-23/rest-spot-finder/assets/98483125/4abcc643-5f7e-4d62-9681-98813c2647ae">
 
+
 ## 실행하는 법
 ```
 $ git clone https://github.com/andyhan-23/rest-spot-finder.git
