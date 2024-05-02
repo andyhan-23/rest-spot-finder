@@ -14,14 +14,14 @@
 ## Preview
 <img width="1421" alt="스크린샷 2024-04-10 오후 1 17 11" src="https://github.com/andyhan-23/rest-spot-finder/assets/98483125/4abcc643-5f7e-4d62-9681-98813c2647ae">
 
-
 ## 실행하는 법
 ```
 $ git clone https://github.com/andyhan-23/rest-spot-finder.git
 $ npm install
 $ npm run dev
 ```
-
+## 고려사항
+네이버 map API 키 같은 경우 개발자만 알아야 하기 때문에 env파일에 숨겨두었습니다. 그로 인해 개발 환경에서 실행시 naver지도가 나오지 않을 수 있습니다.
 
 
 
