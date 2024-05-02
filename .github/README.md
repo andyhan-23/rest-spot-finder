@@ -16,6 +16,7 @@
 
 ## 실행하는 법
 ```
+$ git clone https://github.com/andyhan-23/rest-spot-finder.git
 $ npm install
 $ npm run dev
 ```
