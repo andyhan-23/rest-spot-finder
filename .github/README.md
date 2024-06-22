@@ -12,7 +12,8 @@
 [__결과물 링크 열기__](https://restspotfinder.site/)
 
 ## Preview
-<img width="1421" alt="스크린샷 2024-04-10 오후 1 17 11" src="https://github.com/andyhan-23/rest-spot-finder/assets/98483125/4abcc643-5f7e-4d62-9681-98813c2647ae">
+<img width="1500" alt="스크린샷 2024-06-21 오후 7 06 35" src="https://github.com/andyhan-23/rest-spot-finder/assets/98483125/6a264de9-05cf-4166-91fa-6ead40606064">
+
 
 ## 실행하는 법
 ```
