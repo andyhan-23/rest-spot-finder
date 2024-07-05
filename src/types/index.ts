@@ -170,3 +170,16 @@ export type RouteHistory = {
   startPlace: SearchPlaceDataType;
   goalPlace: SearchPlaceDataType;
 };
+
+export type RecentSearchPropsType = {
+  startPlace: SearchPlaceDataType | null;
+  goalPlace: SearchPlaceDataType | null;
+  setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  routeHistory: RouteHistory[];
+  placeHistory: SearchPlaceDataType[];
+  clearHistory: (type: string) => void;
+  setSelectedRouteHistory: Dispatch<SetStateAction<RouteHistory | undefined>>;
+  handleClickRecentSearch: () => void;
+  setClickedPlaceHistory: Dispatch<SetStateAction<boolean>>;
+};

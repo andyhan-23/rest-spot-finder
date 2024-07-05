@@ -1,19 +1,5 @@
 import "./index.css";
-import { SearchPlaceDataType, RouteHistory } from "@/types";
-import { Dispatch, SetStateAction } from "react";
-
-interface RecentSearchProps {
-  startPlace: SearchPlaceDataType | null;
-  goalPlace: SearchPlaceDataType | null;
-  setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
-  setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
-  routeHistory: RouteHistory[];
-  placeHistory: SearchPlaceDataType[];
-  clearHistory: (type: string) => void;
-  setSelectedRouteHistory: Dispatch<SetStateAction<RouteHistory | undefined>>;
-  handleClickRecentSearch: () => void;
-  setClickedPlaceHistory: Dispatch<SetStateAction<boolean>>;
-}
+import { RecentSearchPropsType } from "@/types";
 
 const RecentSearch = ({
   startPlace,
@@ -26,7 +12,7 @@ const RecentSearch = ({
   setSelectedRouteHistory,
   handleClickRecentSearch,
   setClickedPlaceHistory,
-}: RecentSearchProps) => {
+}: RecentSearchPropsType) => {
   return (
     <div className="recentSearch">
       <div className="title">
