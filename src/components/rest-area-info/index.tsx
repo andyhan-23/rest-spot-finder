@@ -8,8 +8,10 @@ import { Loading } from "..";
 
 const RestAreaInfo = ({
   route,
+  restSpotModalOpen,
   setRestSpotModalOpen,
   hoveredRestSpot,
+  setHoveredRestSpot,
   clickedRestSpot,
   setClickedRestSpot,
   clickedRouteIndex,
@@ -29,6 +31,10 @@ const RestAreaInfo = ({
     }
   }, [restAreaListData, setRestAreaList, restSpotsRefetch, restSpotsLoading]);
 
+  useEffect(() => {
+    if (!restSpotModalOpen) setRestAreaList([]);
+  }, [restSpotModalOpen]);
+
   return (
     <div className="relative z-50 flex w-96 shrink-0 flex-col border border-gray-300">
       {route && <PathInfoContent ranking={clickedRouteIndex} route={route} />}
@@ -38,6 +44,9 @@ const RestAreaInfo = ({
       >
         <DoubleLeftArrow className="h-6 w-6 hover:stroke-green-800" />
       </i>
+      <p>
+        <span>더블 클릭시</span> 휴게소 정보 페이지로 이동합니다.
+      </p>
       <hr />
       {restSpotsFetching ? (
         <Loading className="h-full" />
@@ -45,7 +54,7 @@ const RestAreaInfo = ({
         <>
           {restAreaListData?.length === 0 ? (
             <div className="relative flex w-full justify-center">
-              <h1 className="font-bold">보여줄 휴게소가 없습니다.</h1>
+              <h1 className="font-bold">조회 데이터가 없습니다.</h1>
             </div>
           ) : (
             <div className="flex w-full flex-col overflow-scroll">
@@ -64,6 +73,9 @@ const RestAreaInfo = ({
                       routeName={value.routeName}
                       naverMapUrl={value.naverMapUrl}
                       hoveredRestSpot={hoveredRestSpot}
+                      setHoveredRestSpot={setHoveredRestSpot}
+                      clickedRestSpot={clickedRestSpot}
+                      setClickedRestSpot={setClickedRestSpot}
                     />
                     {index !== restAreaList.length - 1 && <hr />}
                   </Fragment>

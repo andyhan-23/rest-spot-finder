@@ -116,8 +116,10 @@ export type RestSpot = {
 
 export type RestAreaInfoPropsType = {
   route: PathInfoType | undefined;
+  restSpotModalOpen: boolean;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   hoveredRestSpot: string;
+  setHoveredRestSpot: Dispatch<SetStateAction<string>>;
   clickedRestSpot: string;
   setClickedRestSpot: Dispatch<SetStateAction<string>>;
   clickedRouteIndex: number;

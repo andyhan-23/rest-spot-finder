@@ -186,6 +186,7 @@ const Init = () => {
         {selectedRoute && restSpotModalOpen && (
           <RestAreaInfo
             route={selectedRoute}
+            restSpotModalOpen={restSpotModalOpen}
             setRestSpotModalOpen={setRestSpotModalOpen}
             hoveredRestSpot={hoveredRestSpot}
             setHoveredRestSpot={setHoveredRestSpot}
