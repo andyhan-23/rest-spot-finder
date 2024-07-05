@@ -1,5 +1,5 @@
 import { useState } from "react";
-import postSurvey from "@/apis/hooks/postSurvey.ts";
+import { usePostSurvey } from "@/hooks";
 import "./index.css";
 
 const Survey = () => {
@@ -10,7 +10,7 @@ const Survey = () => {
     if (text.length != 0) {
       try {
         window.alert("의견 보내주셔서 감사합니다.");
-        await postSurvey({ email, text });
+        await usePostSurvey({ email, text });
       } catch (error) {
         window.alert("의견 제출에 실패했습니다. 다시 시도해주세요.");
       } finally {

@@ -3,6 +3,7 @@ const URL = Object.freeze({
   searchPlace: "/place/naver?searchTerm",
   routes: "/route?start",
   restSpots: "/restarea/route?routeId",
+  survey: "/survey",
 } as const);
 
 export default URL;
