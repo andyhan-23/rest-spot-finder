@@ -27,7 +27,6 @@ const Init = () => {
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
     goal: [goalPlace?.lng, goalPlace?.lat].join(","),
-    // waypoints: waypoints.map(waypoint => [waypoint.lng, waypoint.lat].join(",")),
     page: "1",
     isTest: true,
   });
