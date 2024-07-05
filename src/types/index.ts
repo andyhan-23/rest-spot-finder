@@ -36,14 +36,12 @@ export type InputSubmitPropsType = {
 };
 
 export type InputSubmitContentPropsType = {
+  place: SearchPlaceDataType | null;
   setPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   type: "start" | "goal";
   isReset: boolean;
-  setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
   setShowRouteList: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
-  setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
-  setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   addPlaceHistory: (place: SearchPlaceDataType) => void;
 };
 

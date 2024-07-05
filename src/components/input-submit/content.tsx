@@ -15,40 +15,30 @@ const inputType = {
 };
 
 const InputSubmitContent = ({
+  place,
   setPlace,
   type,
   isReset,
-  setHasStartAndGoal,
   setShowRouteList,
   setRestSpotModalOpen,
-  setStartPlace,
-  setGoalPlace,
   addPlaceHistory,
 }: InputSubmitContentPropsType) => {
   const [placeholder, setPlaceholder] = useState<string>(inputType.placeholder[type]);
-  const [searchedPlace, setSearchedPlace] = useState<string>("");
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [placeList, setPlaceList] = useState<SearchPlaceDataType[] | undefined>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const debouncePlace = useDebounce(searchedPlace || "");
-  const { refetch } = useGetSearchPlace({ searchTerm: debouncePlace });
+  const debouncedPlace = useDebounce(searchKeyword || "");
+  const { refetch } = useGetSearchPlace({ searchTerm: debouncedPlace });
 
-  const handleFocus = () => {
-    setPlaceholder(inputType.onFocus[type]);
-    setModalIsOpen(true);
-  };
-  const handleBlur = () => {
-    setPlaceholder(inputType.placeholder[type]);
-    setModalIsOpen(false);
-  };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.target.value === "" ? setPlaceList([]) : setModalIsOpen(true);
-    e.target.value !== "" && setHasStartAndGoal(true);
-    setSearchedPlace(e.target.value);
-    if (e.target.value !== searchedPlace) {
+    const inputValue = e.target.value;
+    inputValue === "" ? setPlaceList([]) : setModalIsOpen(true);
+    setSearchKeyword(inputValue);
+
+    if (inputValue !== searchKeyword) {
       setShowRouteList(false);
       setRestSpotModalOpen(false);
-      if (type === "start") setStartPlace(null);
-      else if (type === "goal") setGoalPlace(null);
+      setPlace(null);
     }
   };
 
@@ -61,17 +51,27 @@ const InputSubmitContent = ({
   }) => {
     e.stopPropagation();
     setPlace(place);
-    setSearchedPlace(place.name);
     setPlaceList([]);
     setModalIsOpen(false);
     addPlaceHistory(place);
   };
+
+  // 초성일 때는 refetch 호출 X ex) 'ㄷ', 'ㅁ'
+  const isSingleConsonant = (char: string) => {
+    const koreanConsonantRange = /[\u3131-\u3163]/;
+
+    return koreanConsonantRange.test(char);
+  };
+
   useEffect(() => {
-    debouncePlace ? refetch().then(res => setPlaceList(res.data)) : setPlaceList([]);
-  }, [debouncePlace, refetch]);
+    !isSingleConsonant(debouncedPlace) && debouncedPlace
+      ? refetch().then(res => setPlaceList(res.data))
+      : setPlaceList([]);
+  }, [debouncedPlace, refetch]);
+
   useEffect(() => {
     if (isReset) {
-      setSearchedPlace("");
+      setSearchKeyword("");
       setPlaceList([]);
       setModalIsOpen(false);
     }
@@ -81,14 +81,20 @@ const InputSubmitContent = ({
     <div className="relative w-full">
       <input
         type="text"
-        value={searchedPlace}
+        value={place?.name || searchKeyword || ""}
+        placeholder={placeholder}
         onChange={handleChange}
         className={`h-10 w-80 border border-black p-4 placeholder-gray-400 placeholder-opacity-50 ${type === "start" ? "rounded-t border-t border-b-gray-200" : "rounded-b border-b border-t-0"}`}
-        placeholder={placeholder}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
+        onFocus={() => {
+          setPlaceholder(inputType.onFocus[type]);
+          setModalIsOpen(true);
+        }}
+        onBlur={() => {
+          setPlaceholder(inputType.placeholder[type]);
+          setModalIsOpen(false);
+        }}
       />
-      {placeList && placeList.length > 0 && searchedPlace && modalIsOpen && (
+      {placeList && placeList.length > 0 && searchKeyword && modalIsOpen && (
         <div className="absolute z-50 w-80 rounded-b border border-black border-t-white bg-white">
           {placeList?.map((place, index) => (
             <div key={index}>
