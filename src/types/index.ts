@@ -21,13 +21,17 @@ export type useGetRoutesRequestType = {
 };
 
 export type InputSubmitPropsType = {
+  startPlace: SearchPlaceDataType | null;
   setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  goalPlace: SearchPlaceDataType | null;
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  setRouteList: Dispatch<SetStateAction<Route[] | undefined>>;
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  hasStartAndGoal: boolean;
   setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
   setShowRouteList: Dispatch<SetStateAction<boolean>>;
-  hasStartAndGoal: boolean;
+  showRouteList: boolean;
   addPlaceHistory: (place: SearchPlaceDataType) => void;
 };
 
