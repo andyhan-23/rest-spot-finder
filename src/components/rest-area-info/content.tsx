@@ -21,7 +21,13 @@ const RestAreaInfoContent = ({
   routeName,
   naverMapUrl,
   hoveredRestSpot,
+  clickedRestSpot,
+  setClickedRestSpot,
 }: RestAreaInfoContentPropsType) => {
+  const handleUrlClick = () => {
+    window.open(naverMapUrl, "_blank");
+  };
+
   const typeMapping: {
     [key: string]: {
       restArea: JSX.Element;
@@ -40,14 +46,12 @@ const RestAreaInfoContent = ({
   const Icon = typeMapping[type] || {
     icon: null,
   };
-  const handleUrlClick = () => {
-    window.open(naverMapUrl, "_blank");
-  };
 
   return (
     <div
       className={`relative flex w-full gap-5 px-4 py-4 hover:bg-emerald-100 ${hoveredRestSpot === name && "bg-emerald-100"}`}
-      onClick={handleUrlClick}
+      onClick={() => setClickedRestSpot(name)}
+      onDoubleClick={handleUrlClick}
     >
       <div className="flex h-12 w-12 shrink-0 items-center rounded-full bg-gray-100 ">
         {Icon.restArea}

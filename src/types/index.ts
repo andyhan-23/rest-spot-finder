@@ -136,6 +136,9 @@ export type RestAreaInfoContentPropsType = {
   routeName: string;
   naverMapUrl: string;
   hoveredRestSpot: string;
+  setHoveredRestSpot: Dispatch<SetStateAction<string>>;
+  clickedRestSpot: string;
+  setClickedRestSpot: Dispatch<SetStateAction<string>>;
 };
 
 export type CustomMarkerPropsType = {
