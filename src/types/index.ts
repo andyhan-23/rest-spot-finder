@@ -28,6 +28,7 @@ export type InputSubmitPropsType = {
   setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
   setShowRouteList: Dispatch<SetStateAction<boolean>>;
   hasStartAndGoal: boolean;
+  addPlaceHistory: (place: SearchPlaceDataType) => void;
 };
 
 export type InputSubmitContentPropsType = {
@@ -39,6 +40,7 @@ export type InputSubmitContentPropsType = {
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   setStartPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
   setGoalPlace: Dispatch<SetStateAction<SearchPlaceDataType | null>>;
+  addPlaceHistory: (place: SearchPlaceDataType) => void;
 };
 
 export type LoadingPropsType = {
@@ -111,6 +113,9 @@ export type RestAreaInfoPropsType = {
   route: PathInfoType | undefined;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   hoveredRestSpot: string;
+  clickedRestSpot: string;
+  setClickedRestSpot: Dispatch<SetStateAction<string>>;
+  clickedRouteIndex: number;
 };
 
 export type RestAreaInfoContentPropsType = {

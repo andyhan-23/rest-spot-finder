@@ -4,6 +4,7 @@ const URL = Object.freeze({
   routes: "/route?start",
   restSpots: "/restarea/route?routeId",
   survey: "/survey",
+  routeSeachId: "/route/search?searchId",
 } as const);
 
 export default URL;

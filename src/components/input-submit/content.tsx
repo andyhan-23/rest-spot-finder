@@ -23,6 +23,7 @@ const InputSubmitContent = ({
   setRestSpotModalOpen,
   setStartPlace,
   setGoalPlace,
+  addPlaceHistory,
 }: InputSubmitContentPropsType) => {
   const [placeholder, setPlaceholder] = useState<string>(inputType.placeholder[type]);
   const [searchedPlace, setSearchedPlace] = useState<string>("");
@@ -63,6 +64,7 @@ const InputSubmitContent = ({
     setSearchedPlace(place.name);
     setPlaceList([]);
     setModalIsOpen(false);
+    addPlaceHistory(place);
   };
   useEffect(() => {
     debouncePlace ? refetch().then(res => setPlaceList(res.data)) : setPlaceList([]);

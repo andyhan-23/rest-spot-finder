@@ -11,22 +11,24 @@ import {
 } from "@/components";
 import { useState, useEffect } from "react";
 import { SearchPlaceDataType, Route, RouteHistory } from "@/types";
-import { useGetRoutes, useGetRestSpots } from "@/hooks";
+import { useGetRoutes, useGetRestSpots, useGetRoutesBySearchId } from "@/hooks";
 
 const Init = () => {
   const [startPlace, setStartPlace] = useState<SearchPlaceDataType | null>(null);
   const [goalPlace, setGoalPlace] = useState<SearchPlaceDataType | null>(null);
   const [routeList, setRouteList] = useState<Route[]>();
   const [selectedRoute, setSelectedRoute] = useState<Route>();
+  const [selectedRouteHistory, setSelectedRouteHistory] = useState<RouteHistory | undefined>();
+  const [clickedRouteIndex, setClickedRouteIndex] = useState<number>(0);
   const [clickedMorePath, setClickedMorePath] = useState<boolean>(false);
-  const [restSpotModalOpen, setRestSpotModalOpen] = useState<boolean>(false);
   const [hasStartAndGoal, setHasStartAndGoal] = useState<boolean>(true);
+  const [restSpotModalOpen, setRestSpotModalOpen] = useState<boolean>(false);
   const [showRouteList, setShowRouteList] = useState<boolean>(false);
   const [hoveredRestSpot, setHoveredRestSpot] = useState<string>("");
-  const [clickedFindRoute, setClickedFindRoute] = useState<boolean>(false);
+  const [clickedRestSpot, setClickedRestSpot] = useState<string>("");
   const [routeHistory, setRouteHistory] = useState<RouteHistory[]>([]);
   const [placeHistory, setPlaceHistory] = useState<SearchPlaceDataType[]>([]);
-  const [selectedRouteHistory, setSelectedRouteHistory] = useState<RouteHistory | undefined>();
+  const [clickedPlaceHistory, setClickedPlaceHistory] = useState<boolean>(false);
 
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
@@ -39,18 +41,59 @@ const Init = () => {
     routeId: selectedRoute?.routeId,
   });
 
+  const { refetch: routesBySearchIdRefetch } = useGetRoutesBySearchId({
+    searchId: selectedRouteHistory?.searchId,
+  });
+
   const handleClickSearchRoutes = async () => {
     if (startPlace && goalPlace) {
       const routes = await routesRefetch();
-      setClickedMorePath(false);
+
       setShowRouteList(true);
+      setClickedMorePath(false);
       setRouteList(routes.data);
       routes.data && setSelectedRoute(routes.data[0]);
-      setHasStartAndGoal(true);
-      setClickedFindRoute(true);
+
+      const name = startPlace?.name + " -> " + goalPlace?.name;
+      const searchId = routes.data ? routes.data[0].searchId : 0;
+      addRouteHistory({ name, searchId, startPlace, goalPlace });
+      setHasStartAndGoal(true); // errText
+      setClickedPlaceHistory(false); // 최근 검색 장소 클릭 초기화
+      setClickedRestSpot(""); // 휴게소 클릭 초기화
     } else {
       setHasStartAndGoal(false);
     }
+  };
+
+  const handleClickRecentSearch = async () => {
+    if (selectedRouteHistory != null && selectedRouteHistory.searchId > 0) {
+      const routes = await routesBySearchIdRefetch();
+
+      setShowRouteList(true);
+      setClickedMorePath(false);
+      setRouteList(routes.data);
+      routes.data && setSelectedRoute(routes.data[0]);
+      setStartPlace(selectedRouteHistory.startPlace);
+      setGoalPlace(selectedRouteHistory.goalPlace);
+    }
+  };
+
+  const addRouteHistory = (routeHistoryItem: RouteHistory) => {
+    const history: RouteHistory[] = JSON.parse(localStorage.getItem("route") || "[]");
+    if (history.length >= 5) history.shift();
+
+    history.push(routeHistoryItem);
+    localStorage.setItem("route", JSON.stringify(history));
+    setRouteHistory(history);
+  };
+
+  const addPlaceHistory = (place: SearchPlaceDataType) => {
+    const history: SearchPlaceDataType[] = JSON.parse(localStorage.getItem("place") || "[]");
+    if (history.length >= 5) history.shift();
+
+    history.push(place);
+    localStorage.setItem("place", JSON.stringify(history));
+    setPlaceHistory(history);
   };
 
   const clearHistory = (type: string) => {
@@ -65,6 +108,23 @@ const Init = () => {
     selectedRoute && restSpotsRefetch();
   }, [selectedRoute, restSpotsRefetch]);
 
+  useEffect(() => {
+    setPlaceHistory(JSON.parse(localStorage.getItem("place") || "[]"));
+    setRouteHistory(JSON.parse(localStorage.getItem("route") || "[]"));
+  }, []);
+
+  // 최근 검색한 경로 클릭 이벤트 처리
+  useEffect(() => {
+    handleClickRecentSearch();
+  }, [selectedRouteHistory]);
+
+  // 최근 검색한 장소 클릭 이벤트 처리
+  useEffect(() => {
+    if (startPlace && goalPlace && clickedPlaceHistory) {
+      handleClickSearchRoutes();
+    }
+  }, [startPlace, goalPlace, clickedPlaceHistory]);
+
   return (
     <div className="flex h-full">
       <Logos />
@@ -72,13 +132,17 @@ const Init = () => {
         <div className="flex h-full flex-col">
           <Title />
           <InputSubmit
+            startPlace={startPlace}
             setStartPlace={setStartPlace}
+            goalPlace={goalPlace}
             setGoalPlace={setGoalPlace}
+            setRouteList={setRouteList}
             handleClickSearchRoutes={handleClickSearchRoutes}
             setRestSpotModalOpen={setRestSpotModalOpen}
             hasStartAndGoal={hasStartAndGoal}
-            setHasStartAndGoal={setHasStartAndGoal}
             setShowRouteList={setShowRouteList}
+            showRouteList={showRouteList}
+            addPlaceHistory={addPlaceHistory}
           />
           {isGetRoutesLoading ? (
             <Loading className="h-full" />
@@ -90,11 +154,14 @@ const Init = () => {
                   setRouteList={setRouteList}
                   selectedRoute={selectedRoute}
                   setSelectedRoute={setSelectedRoute}
+                  clickedRouteIndex={clickedRouteIndex}
+                  setClickedRouteIndex={setClickedRouteIndex}
                   startPlace={startPlace}
                   goalPlace={goalPlace}
                   clickedMorePath={clickedMorePath}
                   setClickedMorePath={setClickedMorePath}
                   setRestSpotModalOpen={setRestSpotModalOpen}
+                  setClickedRestSpot={setClickedRestSpot}
                 />
               ) : (
                 <>
@@ -107,6 +174,8 @@ const Init = () => {
                     placeHistory={placeHistory}
                     clearHistory={clearHistory}
                     setSelectedRouteHistory={setSelectedRouteHistory}
+                    handleClickRecentSearch={handleClickRecentSearch}
+                    setClickedPlaceHistory={setClickedPlaceHistory}
                   />
                   <Survey />
                 </>
@@ -119,6 +188,10 @@ const Init = () => {
             route={selectedRoute}
             setRestSpotModalOpen={setRestSpotModalOpen}
             hoveredRestSpot={hoveredRestSpot}
+            setHoveredRestSpot={setHoveredRestSpot}
+            clickedRestSpot={clickedRestSpot}
+            setClickedRestSpot={setClickedRestSpot}
+            clickedRouteIndex={clickedRouteIndex}
           />
         )}
         <NaverMap
@@ -130,8 +203,8 @@ const Init = () => {
           restSpotList={restSpotList}
           restSpotModalOpen={restSpotModalOpen}
           setHoveredRestSpot={setHoveredRestSpot}
-          clickedFindRoute={clickedFindRoute}
-          setClickedFindRoute={setClickedFindRoute}
+          setClickedRestSpot={setClickedRestSpot}
+          clickedRestSpot={clickedRestSpot}
         />
       </div>
     </div>

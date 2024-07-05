@@ -1,4 +1,4 @@
-import { InputSubmitPropsType } from "@/types";
+import { InputSubmitPropsType, SearchPlaceDataType } from "@/types";
 import { useEffect, useState } from "react";
 import InputSubmitContent from "./content";
 import { RestartIcon, PlusIcon, RightIcon } from "@/assets/icons";
@@ -11,6 +11,7 @@ const InputSubmit = ({
   hasStartAndGoal,
   setHasStartAndGoal,
   setShowRouteList,
+  addPlaceHistory,
 }: InputSubmitPropsType) => {
   const [wayPointPlaceholder, setWayPointPlaceholder] = useState("경유지 입력");
   const [wayPoints, setWayPoints] = useState<string[]>([]);
@@ -58,6 +59,7 @@ const InputSubmit = ({
           setRestSpotModalOpen={setRestSpotModalOpen}
           setStartPlace={setStartPlace}
           setGoalPlace={setGoalPlace}
+          addPlaceHistory={addPlaceHistory}
         />
         {wayPoints.map((waypoint, index) => (
           <div key={index} className="relative">
@@ -90,6 +92,7 @@ const InputSubmit = ({
           setRestSpotModalOpen={setRestSpotModalOpen}
           setStartPlace={setStartPlace}
           setGoalPlace={setGoalPlace}
+          addPlaceHistory={addPlaceHistory}
         />
       </div>
       <div className="flex w-full justify-between bg-white">

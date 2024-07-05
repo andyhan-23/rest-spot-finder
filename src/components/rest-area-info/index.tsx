@@ -6,7 +6,14 @@ import { useGetRestSpots } from "@/hooks";
 import { DoubleLeftArrow } from "@/assets/icons";
 import { Loading } from "..";
 
-const RestAreaInfo = ({ route, setRestSpotModalOpen, hoveredRestSpot }: RestAreaInfoPropsType) => {
+const RestAreaInfo = ({
+  route,
+  setRestSpotModalOpen,
+  hoveredRestSpot,
+  clickedRestSpot,
+  setClickedRestSpot,
+  clickedRouteIndex,
+}: RestAreaInfoPropsType) => {
   const [restAreaList, setRestAreaList] = useState<RestSpot[] | undefined>();
   const {
     data: restAreaListData,
@@ -24,7 +31,7 @@ const RestAreaInfo = ({ route, setRestSpotModalOpen, hoveredRestSpot }: RestArea
 
   return (
     <div className="relative z-50 flex w-96 shrink-0 flex-col border border-gray-300">
-      {route && <PathInfoContent ranking={-1} route={route} />}
+      {route && <PathInfoContent ranking={clickedRouteIndex} route={route} />}
       <i
         className="absolute right-3 top-3 rounded-lg hover:bg-emerald-100"
         onClick={() => setRestSpotModalOpen(false)}
