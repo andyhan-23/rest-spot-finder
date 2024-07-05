@@ -6,3 +6,4 @@ export { default as PathInfo } from "./path-info";
 export { default as RecentSearch } from "./recent-search";
 export { default as RestAreaInfo } from "./rest-area-info";
 export { default as NaverMap } from "./maps/naver";
+export { default as Survey } from "./survey";

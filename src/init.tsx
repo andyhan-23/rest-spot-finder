@@ -7,6 +7,7 @@ import {
   Loading,
   Logos,
   NaverMap,
+  Survey,
 } from "@/components";
 import { useState, useEffect } from "react";
 import { SearchPlaceDataType, Route } from "@/types";
@@ -85,7 +86,10 @@ const Init = () => {
                   setRestSpotModalOpen={setRestSpotModalOpen}
                 />
               ) : (
-                <RecentSearch />
+                <>
+                  <RecentSearch />
+                  <Survey />
+                </>
               )}
             </>
           )}

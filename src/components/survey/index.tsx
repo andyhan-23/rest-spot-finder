@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { usePostSurvey } from "@/hooks";
-import "./index.css";
 
 const Survey = () => {
   const [email, setEmail] = useState<string>("");
@@ -23,19 +22,26 @@ const Survey = () => {
   };
 
   return (
-    <div className="surveyBox">
+    <div className="fixed bottom-0 left-0 box-border flex w-full flex-col bg-white p-4 shadow-md">
       <input
         type="email"
         placeholder="Email (선택)"
         value={email}
         onChange={e => setEmail(e.target.value)}
+        className="my-2 cursor-pointer rounded border border-gray-200 p-2 text-sm"
       />
       <textarea
         placeholder="서비스를 사용하면서 불편한 점이나 개선 사항을 보내주세요. 이메일을 작성해주시면 수정 여부 및 적용 일자를 공유해드립니다."
         value={text}
         onChange={e => setText(e.target.value)}
+        className="resize-vertical my-2 h-24 cursor-pointer rounded border border-gray-200 p-2 text-sm"
       ></textarea>
-      <button onClick={clickSurveyBtn}>보내기</button>
+      <button
+        onClick={clickSurveyBtn}
+        className="mt-4 cursor-pointer rounded bg-blue-600 p-2 text-white hover:bg-blue-500"
+      >
+        보내기
+      </button>
     </div>
   );
 };
