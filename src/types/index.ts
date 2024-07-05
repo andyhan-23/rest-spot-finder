@@ -29,7 +29,6 @@ export type InputSubmitPropsType = {
   handleClickSearchRoutes: () => void;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
   hasStartAndGoal: boolean;
-  setHasStartAndGoal: Dispatch<SetStateAction<boolean>>;
   setShowRouteList: Dispatch<SetStateAction<boolean>>;
   showRouteList: boolean;
   addPlaceHistory: (place: SearchPlaceDataType) => void;
