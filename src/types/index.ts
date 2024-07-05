@@ -80,6 +80,7 @@ export type PathInfoPropsType = {
 
 export type PathInfoContentPropsType = {
   ranking: number;
+  clickedId?: number;
   route: PathInfoType;
 };
 

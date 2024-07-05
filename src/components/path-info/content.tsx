@@ -1,6 +1,6 @@
 import { PathInfoContentPropsType } from "@/types";
 
-const PathInfoContent = ({ route, ranking }: PathInfoContentPropsType) => {
+const PathInfoContent = ({ route, ranking, clickedId }: PathInfoContentPropsType) => {
   const { duration, distance, tollFare, fuelPrice, optionText } = route;
 
   const convertTimeToHoursMinutes = (milliseconds: number) => {
