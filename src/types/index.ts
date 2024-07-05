@@ -68,11 +68,14 @@ export type PathInfoPropsType = {
   setRouteList: Dispatch<SetStateAction<Route[] | undefined>>;
   selectedRoute: Route | undefined;
   setSelectedRoute: Dispatch<SetStateAction<Route | undefined>>;
+  clickedRouteIndex: number;
+  setClickedRouteIndex: Dispatch<SetStateAction<number>>;
   startPlace: SearchPlaceDataType | null;
   goalPlace: SearchPlaceDataType | null;
   clickedMorePath: boolean;
   setClickedMorePath: Dispatch<SetStateAction<boolean>>;
   setRestSpotModalOpen: Dispatch<SetStateAction<boolean>>;
+  setClickedRestSpot: Dispatch<SetStateAction<string>>;
 };
 
 export type PathInfoContentPropsType = {

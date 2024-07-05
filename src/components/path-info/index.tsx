@@ -1,18 +1,20 @@
 import PathInfoContent from "./content";
 import { useGetRoutes } from "@/hooks";
 import { Loading } from "..";
-import { PathInfoPropsType } from "@/types";
+import { PathInfoPropsType, Route } from "@/types";
 
 const PathInfo = ({
   routeList,
   setRouteList,
-  selectedRoute,
   setSelectedRoute,
+  clickedRouteIndex,
+  setClickedRouteIndex,
   startPlace,
   goalPlace,
   clickedMorePath,
   setClickedMorePath,
   setRestSpotModalOpen,
+  setClickedRestSpot,
 }: PathInfoPropsType) => {
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
@@ -26,22 +28,30 @@ const PathInfo = ({
     setClickedMorePath(true);
   };
 
+  const handleClick = (route: Route, index: number) => {
+    setClickedRouteIndex(index);
+    setSelectedRoute(route);
+  };
+
   return (
     <div className={`relative flex h-full flex-col overflow-auto`}>
-      <h1 className="px-3 py-2 text-center font-bold text-red-600">
-        더블 클릭시 경로상 휴게소 정보가 표시됩니다.
-      </h1>
+      <p className="px-3 py-2 text-center font-bold text-red-600">
+        <span>더블 클릭시</span> 경로상 휴게소 정보가 표시됩니다.
+      </p>
       <div className="h-full overflow-y-scroll">
         {routeList?.map((route, index) => {
           return (
             <div
-              className={`felx-col flex ${route === selectedRoute && "border-b border-t border-emerald-500 bg-emerald-100"}`}
+              className={"felx-col flex border-b border-t border-emerald-500 bg-emerald-100"}
               key={route.routeId}
-              onClick={() => setSelectedRoute(route)}
-              onDoubleClick={() => setRestSpotModalOpen(true)}
+              onClick={() => handleClick(route, index + 1)}
+              onDoubleClick={() => {
+                setRestSpotModalOpen(true);
+                setClickedRestSpot("");
+              }}
             >
-              <PathInfoContent ranking={index} route={route} />
-              {index !== routeList.length - 1 && <hr />}
+              <PathInfoContent ranking={index + 1} route={route} clickedId={clickedRouteIndex} />
+              <hr />
             </div>
           );
         })}
@@ -56,6 +66,9 @@ const PathInfo = ({
           </button>
         )}
       </div>
+      <p>
+        {startPlace?.name} {`->`} {goalPlace?.name}
+      </p>
     </div>
   );
 };
