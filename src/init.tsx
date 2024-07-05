@@ -10,7 +10,7 @@ import {
   Survey,
 } from "@/components";
 import { useState, useEffect } from "react";
-import { SearchPlaceDataType, Route } from "@/types";
+import { SearchPlaceDataType, Route, RouteHistory } from "@/types";
 import { useGetRoutes, useGetRestSpots } from "@/hooks";
 
 const Init = () => {
@@ -24,6 +24,9 @@ const Init = () => {
   const [showRouteList, setShowRouteList] = useState<boolean>(false);
   const [hoveredRestSpot, setHoveredRestSpot] = useState<string>("");
   const [clickedFindRoute, setClickedFindRoute] = useState<boolean>(false);
+  const [routeHistory, setRouteHistory] = useState<RouteHistory[]>([]);
+  const [placeHistory, setPlaceHistory] = useState<SearchPlaceDataType[]>([]);
+  const [selectedRouteHistory, setSelectedRouteHistory] = useState<RouteHistory | undefined>();
 
   const { refetch: routesRefetch, isLoading: isGetRoutesLoading } = useGetRoutes({
     start: [startPlace?.lng, startPlace?.lat].join(","),
@@ -47,6 +50,14 @@ const Init = () => {
       setClickedFindRoute(true);
     } else {
       setHasStartAndGoal(false);
+    }
+  };
+
+  const clearHistory = (type: string) => {
+    if (type) {
+      localStorage.removeItem(type);
+      if (type === "route") setRouteHistory([]);
+      if (type === "place") setPlaceHistory([]);
     }
   };
 
@@ -87,7 +98,16 @@ const Init = () => {
                 />
               ) : (
                 <>
-                  <RecentSearch />
+                  <RecentSearch
+                    startPlace={startPlace}
+                    goalPlace={goalPlace}
+                    setStartPlace={setStartPlace}
+                    setGoalPlace={setGoalPlace}
+                    routeHistory={routeHistory}
+                    placeHistory={placeHistory}
+                    clearHistory={clearHistory}
+                    setSelectedRouteHistory={setSelectedRouteHistory}
+                  />
                   <Survey />
                 </>
               )}

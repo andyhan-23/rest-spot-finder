@@ -153,3 +153,10 @@ export type NaverMapPropsType = {
   clickedFindRoute: boolean;
   setClickedFindRoute: Dispatch<SetStateAction<boolean>>;
 };
+
+export type RouteHistory = {
+  name: string;
+  searchId: number;
+  startPlace: SearchPlaceDataType;
+  goalPlace: SearchPlaceDataType;
+};

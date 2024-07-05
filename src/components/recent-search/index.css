@@ -1,0 +1,90 @@
+/* index.css */
+
+.recentSearch {
+  margin-top: -1rem;
+  padding: 0 1.5rem;
+}
+
+.recentSearch .title {
+  margin-top: 2em;
+  font-weight: 600;
+  font-size: 0.8em;
+  padding-left: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recentSearch .title > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  margin-right: -10px;
+  font-size: 0.7em;
+  color: crimson;
+  cursor: pointer;
+}
+
+.recentSearch .title > span:hover {
+  text-shadow: 1px 1px 2px rgb(0, 0, 0, 0.2);
+}
+
+.recentSearch .list {
+  margin: 1em 0 3em 0;
+  font-weight: 600;
+  font-size: 0.8em;
+  color: rgba(51, 51, 51);
+}
+
+.recentSearch .list > p {
+  /*글자간격 줄이기*/
+  letter-spacing: -0.05em;
+  font-size: 1.1em;
+  line-height: 1.1em;
+  font-weight: 500; /* 필요에 따라 가중치를 조정합니다 */
+  margin: 1em 0.6em; /* 아이콘과 텍스트 사이의 간격 */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 추가 */
+}
+
+.recentSearch .list > p {
+  cursor: pointer;
+}
+.recentSearch .list > p:hover {
+  color: rgba(4, 117, 244);
+  text-shadow: 1px 1px 3px rgba(4, 117, 244, 0.2); /* 텍스트 그림자 추가 */
+}
+
+.recentSearch .list > p::before {
+  font-family: "Font Awesome 5 Free", serif;
+  font-size: 1em;
+  color: rgb(51, 51, 51, 0.5);
+  font-weight: 600; /* 필요에 따라 가중치를 조정합니다 */
+  margin: 0 0.5em; /* 아이콘과 텍스트 사이의 간격 */
+}
+
+/*검색 기록이 없습니다*/
+.recentSearch .list > span {
+  letter-spacing: -0.05em;
+  font-size: 1.1em;
+  line-height: 1.1em;
+  font-weight: 500; /* 필요에 따라 가중치를 조정합니다 */
+  margin: 1em 0.6em; /* 아이콘과 텍스트 사이의 간격 */
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 추가 */
+}
+
+.recentSearch .list.route p::before {
+  content: "\f1b9";
+}
+
+.recentSearch .list.route > p:hover::before {
+  color: rgba(4, 117, 244);
+  text-shadow: 1px 1px 3px rgba(4, 117, 244, 0.2); /* 텍스트 그림자 추가 */
+}
+
+.recentSearch .list.place > p::before {
+  content: "\f3c5";
+}
