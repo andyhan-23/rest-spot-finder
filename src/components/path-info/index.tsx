@@ -34,15 +34,14 @@ const PathInfo = ({
   };
 
   return (
-    <div className={`relative flex h-full flex-col overflow-auto`}>
-      <p className="px-3 py-2 text-center font-bold text-red-600">
-        <span>더블 클릭시</span> 경로상 휴게소 정보가 표시됩니다.
+    <div className="box-border flex h-full flex-col overflow-y-auto">
+      <p className="border-b border-t border-gray-200 px-4 py-3 text-xs font-semibold text-gray-800">
+        <span className="text-sm text-red-600">더블 클릭시</span> 경로상 휴게소 정보가 표시됩니다.
       </p>
-      <div className="h-full overflow-y-scroll">
+      <div className="box-border flex-grow overflow-y-auto">
         {routeList?.map((route, index) => {
           return (
             <div
-              className={"felx-col flex border-b border-t border-emerald-500 bg-emerald-100"}
               key={route.routeId}
               onClick={() => handleClick(route, index + 1)}
               onDoubleClick={() => {
@@ -55,18 +54,19 @@ const PathInfo = ({
             </div>
           );
         })}
+
         {isGetRoutesLoading && clickedMorePath ? (
-          <Loading className="mt-3" />
+          <Loading className="bottom" />
         ) : (
-          <button
-            className={`relative ml-8 mt-5 h-10 w-80 rounded-md bg-green-600 ${clickedMorePath && "hidden"}`}
+          <div
+            className={`text-shadow-md mx-auto my-4 w-4/5 cursor-pointer rounded-lg bg-green-600 bg-opacity-70 py-3 text-center font-medium text-white shadow-md ${clickedMorePath && "hidden"}`}
             onClick={handleClickMorePathData}
           >
-            <p className="text-white">더보기</p>
-          </button>
+            더보기
+          </div>
         )}
       </div>
-      <p>
+      <p className="border-t border-gray-200 px-4 py-3 text-xs font-semibold text-gray-800">
         {startPlace?.name} {`->`} {goalPlace?.name}
       </p>
     </div>

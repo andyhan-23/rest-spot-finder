@@ -2,7 +2,6 @@ import { PathInfoContentPropsType } from "@/types";
 
 const PathInfoContent = ({ route, ranking, clickedId }: PathInfoContentPropsType) => {
   const { duration, distance, tollFare, fuelPrice, optionText } = route;
-
   const convertTimeToHoursMinutes = (milliseconds: number) => {
     const hours = Math.floor(milliseconds / 3600000);
     const minutes = Math.floor((milliseconds % 3600000) / 60000);
@@ -22,37 +21,33 @@ const PathInfoContent = ({ route, ranking, clickedId }: PathInfoContentPropsType
   const formattedDistance = convertMeterToKilometer(Number(distance));
 
   return (
-    <div className="relative flex flex-col gap-2 px-8 py-6">
-      <div className="flex gap-2">
-        <span
-          className={`flex h-6 w-6 items-center justify-center rounded-full bg-green-600 ${ranking < 0 && "hidden"}`}
-        >
-          <p className="text-white">{ranking + 1}</p>
+    <div className={`p-4 ${clickedId === ranking ? "border-y border-blue-200 bg-blue-50" : ""}`}>
+      <div className="relative pl-7 text-sm font-extrabold tracking-tighter text-blue-700">
+        {optionText}
+        <span className="2w-6 absolute left-1 top-1/2 -translate-y-1/2 transform rounded-full bg-blue-600 pl-1.5 pr-2 font-semibold text-white">
+          {ranking}
         </span>
-        <h1 className="font-bold text-green-600">{optionText}</h1>
       </div>
-      <div className="flex items-end gap-2">
-        <h2 className="flex items-end gap-1">
-          {formattedTime.hours !== 0 && (
-            <>
-              <p className={`text-3xl font-bold`}>{formattedTime.hours}</p>
-              <p className={`text-lg`}>시간</p>
-            </>
-          )}
-          {formattedTime.minutes !== 0 && (
-            <>
-              <p className={`text-3xl font-bold`}>{formattedTime.minutes}</p>
-              <p className={`text-lg`}>분</p>
-            </>
-          )}
-        </h2>
-        <div className="mb-1 h-5 w-[0.1rem] bg-gray-300" />
-        <p className="font-bold">{formattedDistance}km</p>
+      <div className="mt-2 flex items-end">
+        {formattedTime.hours !== 0 && (
+          <p className="mx-1 text-xs font-bold text-gray-700">
+            <span className="text-xl">{formattedTime.hours}</span>시간
+          </p>
+        )}
+        {formattedTime.minutes !== 0 && (
+          <p className="mx-1 text-xs font-bold text-gray-700">
+            <span className="text-xl">{formattedTime.minutes}</span>분
+          </p>
+        )}
+        <div className="mx-1 h-8 w-px border border-gray-200" />
+        <span className="mx-1 text-xs font-bold text-gray-700">{formattedDistance}km</span>
       </div>
-      <div className="flex items-center gap-2">
-        <p>{`통행료 ${tollInfo}`}</p>
-        <div className="mb-1 h-4 w-[0.1rem] bg-gray-300" />
-        <p>{`연료비 ${parseFloat(fuelPrice).toLocaleString()}원`}</p>
+      <div className="mt-2 flex items-center">
+        <p className="mx-1 text-sm tracking-tighter text-gray-700">통행료 {tollInfo}</p>
+        <div className="mx-1 h-8 w-px border border-gray-200" />
+        <p className="mx-1 text-sm tracking-tighter text-gray-700">
+          연료비 {parseFloat(fuelPrice).toLocaleString()}원
+        </p>
       </div>
     </div>
   );
