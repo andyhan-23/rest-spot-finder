@@ -1,7 +1,7 @@
 import { useDebounce, useGetSearchPlace } from "@/hooks";
 import { LocationIcon } from "@/assets/icons";
 import { InputSubmitContentPropsType, SearchPlaceDataType } from "@/types";
-import { ChangeEvent, useEffect, useState, MouseEvent } from "react";
+import { ChangeEvent, useEffect, useState, MouseEvent, KeyboardEvent } from "react";
 
 const inputType = {
   placeholder: {
@@ -29,6 +29,7 @@ const InputSubmitContent = ({
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const debouncedPlace = useDebounce(searchKeyword || "");
   const { refetch } = useGetSearchPlace({ searchTerm: debouncedPlace });
+  const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -56,6 +57,20 @@ const InputSubmitContent = ({
     addPlaceHistory(place);
   };
 
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "ArrowDown") {
+      setHighlightedIndex(prevIndex => (prevIndex + 1) % placeList.length);
+    } else if (e.key === "ArrowUp") {
+      setHighlightedIndex(prevIndex => (prevIndex + placeList.length - 1) % placeList.length);
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
+      const selectedPlace = placeList[highlightedIndex];
+      setPlace(selectedPlace);
+      setPlaceList([]);
+      setModalIsOpen(false);
+      addPlaceHistory(selectedPlace);
+    }
+  };
+
   // 초성일 때는 refetch 호출 X ex) 'ㄷ', 'ㅁ'
   const isSingleConsonant = (char: string) => {
     const koreanConsonantRange = /[\u3131-\u3163]/;
@@ -78,7 +93,11 @@ const InputSubmitContent = ({
   }, [isReset]);
 
   return (
-    <div className="relative w-full ">
+    <div
+      className="relative w-full"
+      tabIndex={0} // Ensures the div is focusable
+      onKeyDown={handleKeyDown} // Handles keyboard navigation
+    >
       <input
         type="text"
         value={place?.name || searchKeyword || ""}
@@ -98,21 +117,26 @@ const InputSubmitContent = ({
       {placeList && placeList.length > 0 && searchKeyword && modalIsOpen && (
         <div className="absolute z-50 w-80 rounded-b border border-black border-t-white bg-white">
           {placeList?.map((place, index) => (
-            <div key={index}>
-              <div
-                className="flex w-full items-center gap-4 px-4 py-3 hover:bg-gray-300 hover:bg-opacity-30"
-                onMouseDown={e => handleClickPlace({ e, place })}
-              >
-                <LocationIcon className="h-5 w-5 shrink-0" />
-                <div className="flex w-full flex-col items-center gap-2">
-                  <div className="flex w-full items-center justify-between">
-                    <p className="text-sm">{place.name}</p>
-                    <p className="text-[0.7rem] text-gray-400">{place.category}</p>
-                  </div>
-                  <p className="w-full text-xs text-slate-600">{place.address}</p>
+            <div
+              key={index}
+              className={`flex w-full items-center gap-4 px-4 py-3 hover:bg-gray-300 hover:bg-opacity-30 ${
+                highlightedIndex === index ? "bg-gray-200" : ""
+              }`}
+              onMouseDown={e => handleClickPlace({ e, place })}
+              tabIndex={0}
+              onKeyDown={e => {
+                if (e.key === "Enter")
+                  handleClickPlace({ e: e as unknown as MouseEvent<HTMLDivElement>, place });
+              }}
+            >
+              <LocationIcon className="h-5 w-5 shrink-0" />
+              <div className="flex w-full flex-col items-center gap-2">
+                <div className="flex w-full items-center justify-between">
+                  <p className="text-sm">{place.name}</p>
+                  <p className="text-[0.7rem] text-gray-400">{place.category}</p>
                 </div>
+                <p className="w-full text-xs text-slate-600">{place.address}</p>
               </div>
-              {index !== placeList.length - 1 && <hr className="border-gray-200" />}
             </div>
           ))}
         </div>
