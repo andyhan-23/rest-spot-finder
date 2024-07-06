@@ -11,3 +11,4 @@ export { default as PharmacyIcon } from "./pharmacy.svg?react";
 export { default as RestaurantIcon } from "./restaurant.svg?react";
 export { default as ToiletIcon } from "./toilet.svg?react";
 export { default as DoubleLeftArrow } from "./double_left_arrow.svg?react";
+export { default as CarIcon } from "./car.svg?react";

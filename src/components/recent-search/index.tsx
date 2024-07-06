@@ -1,5 +1,5 @@
 import { RecentSearchPropsType } from "@/types";
-import { LocationIcon } from "@/assets/icons";
+import { LocationIcon, CarIcon } from "@/assets/icons";
 
 const RecentSearch = ({
   startPlace,
@@ -65,7 +65,7 @@ const RecentSearch = ({
             .slice()
             .reverse()
             .map(routeHistory => (
-              <p
+              <div
                 key={routeHistory.searchId}
                 onClick={() => {
                   setSelectedRouteHistory(routeHistory);
@@ -73,9 +73,11 @@ const RecentSearch = ({
                 }}
                 className="hover:text-shadow-md mx-2.5 my-4 cursor-pointer hover:text-blue-600"
               >
-                <span className="font-awesome pr-2 text-gray-400 before:content-['\f1b9']"></span>
-                {routeHistory.name}
-              </p>
+                <div className="flex flex-row">
+                  <CarIcon className="h-5 w-5" />
+                  {routeHistory.name}
+                </div>
+              </div>
             ))
         ) : (
           <span className="text-shadow-md mx-2.5 my-4">검색 기록이 없습니다.</span>
