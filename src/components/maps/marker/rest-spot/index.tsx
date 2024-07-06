@@ -3,14 +3,16 @@ import { RestSpotMarkerPropsType } from "@/types";
 
 const RestSpotMarker = ({
   position,
-  clicked,
   onClick,
+  onDoubleClick,
   onMouseEnter,
   onMouseLeave,
+  clicked,
 }: RestSpotMarkerPropsType) => {
   return (
     <Marker
       onClick={onClick}
+      onDblclick={onDoubleClick}
       onMouseover={onMouseEnter}
       onMouseout={onMouseLeave}
       defaultPosition={position}

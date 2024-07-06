@@ -151,6 +151,7 @@ export type RestSpotMarkerPropsType = {
   position: { lat: number; lng: number };
   clicked?: boolean;
   onClick?: () => void;
+  onDoubleClick?: () => void;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 };

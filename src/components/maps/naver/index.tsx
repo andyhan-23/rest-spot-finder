@@ -103,7 +103,7 @@ const NaverMapService = ({
                 onMouseEnter={() => handleEnterRestSpotMarker(spot)}
                 onMouseLeave={handleLeaveRestSpotMarker}
                 key={spot.restAreaId}
-                clicked={clickedRestSpot === spot.restAreaId}
+                clicked={clickedRestSpot === spot.name}
               />
             );
           })}
