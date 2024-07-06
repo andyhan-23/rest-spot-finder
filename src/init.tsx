@@ -5,7 +5,6 @@ import {
   RecentSearch,
   RestAreaInfo,
   Loading,
-  Logos,
   NaverMap,
   Survey,
 } from "@/components";
@@ -121,63 +120,68 @@ const Init = () => {
   }, [startPlace, goalPlace, clickedPlaceHistory]);
 
   return (
-    <div className="flex h-full">
-      <div className="flex h-full w-full">
-        <div className="flex h-full flex-col">
-          <Title />
-          <InputSubmit
-            startPlace={startPlace}
-            setStartPlace={setStartPlace}
-            goalPlace={goalPlace}
-            setGoalPlace={setGoalPlace}
-            setRouteList={setRouteList}
-            handleClickSearchRoutes={handleClickSearchRoutes}
-            setRestSpotModalOpen={setRestSpotModalOpen}
-            hasStartAndGoal={hasStartAndGoal}
-            setShowRouteList={setShowRouteList}
-            showRouteList={showRouteList}
-            addPlaceHistory={addPlaceHistory}
-          />
-          {isGetRoutesLoading ? (
-            <Loading className="h-full" />
-          ) : (
-            <>
-              {routeList && showRouteList ? (
-                <PathInfo
-                  routeList={routeList}
-                  setRouteList={setRouteList}
-                  selectedRoute={selectedRoute}
-                  setSelectedRoute={setSelectedRoute}
-                  clickedRouteIndex={clickedRouteIndex}
-                  setClickedRouteIndex={setClickedRouteIndex}
+    <div className="box-border flex overflow-hidden">
+      <div className="relative z-10 box-border flex h-screen w-[25.5em] flex-col bg-white shadow-lg">
+        <div className="w-5.5 absolute left-full top-1/2 h-12 -translate-y-1/2 transform cursor-pointer rounded-r-md border border-r-0 border-gray-300 bg-white hover:shadow-lg">
+          <span className="flex h-full items-center justify-center text-lg font-semibold text-gray-600 hover:text-blue-400">
+            <i className="fas fa-chevron-left"></i>
+          </span>
+        </div>
+        <Title />
+        <InputSubmit
+          startPlace={startPlace}
+          setStartPlace={setStartPlace}
+          goalPlace={goalPlace}
+          setGoalPlace={setGoalPlace}
+          setRouteList={setRouteList}
+          handleClickSearchRoutes={handleClickSearchRoutes}
+          setRestSpotModalOpen={setRestSpotModalOpen}
+          hasStartAndGoal={hasStartAndGoal}
+          setShowRouteList={setShowRouteList}
+          showRouteList={showRouteList}
+          addPlaceHistory={addPlaceHistory}
+        />
+        {isGetRoutesLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {routeList && showRouteList ? (
+              <PathInfo
+                routeList={routeList}
+                setRouteList={setRouteList}
+                selectedRoute={selectedRoute}
+                setSelectedRoute={setSelectedRoute}
+                clickedRouteIndex={clickedRouteIndex}
+                setClickedRouteIndex={setClickedRouteIndex}
+                startPlace={startPlace}
+                goalPlace={goalPlace}
+                clickedMorePath={clickedMorePath}
+                setClickedMorePath={setClickedMorePath}
+                setRestSpotModalOpen={setRestSpotModalOpen}
+                setClickedRestSpot={setClickedRestSpot}
+              />
+            ) : (
+              <div>
+                <RecentSearch
                   startPlace={startPlace}
                   goalPlace={goalPlace}
-                  clickedMorePath={clickedMorePath}
-                  setClickedMorePath={setClickedMorePath}
-                  setRestSpotModalOpen={setRestSpotModalOpen}
-                  setClickedRestSpot={setClickedRestSpot}
+                  setStartPlace={setStartPlace}
+                  setGoalPlace={setGoalPlace}
+                  routeHistory={routeHistory}
+                  placeHistory={placeHistory}
+                  clearHistory={clearHistory}
+                  setSelectedRouteHistory={setSelectedRouteHistory}
+                  handleClickRecentSearch={handleClickRecentSearch}
+                  setClickedPlaceHistory={setClickedPlaceHistory}
                 />
-              ) : (
-                <>
-                  <RecentSearch
-                    startPlace={startPlace}
-                    goalPlace={goalPlace}
-                    setStartPlace={setStartPlace}
-                    setGoalPlace={setGoalPlace}
-                    routeHistory={routeHistory}
-                    placeHistory={placeHistory}
-                    clearHistory={clearHistory}
-                    setSelectedRouteHistory={setSelectedRouteHistory}
-                    handleClickRecentSearch={handleClickRecentSearch}
-                    setClickedPlaceHistory={setClickedPlaceHistory}
-                  />
-                  <Survey />
-                </>
-              )}
-            </>
-          )}
-        </div>
-        {selectedRoute && restSpotModalOpen && (
+                <Survey />
+              </div>
+            )}
+          </>
+        )}
+      </div>
+      {selectedRoute && restSpotModalOpen && (
+        <div className="relative z-10 box-border flex h-screen w-[25.5em] flex-col bg-white shadow-lg">
           <RestAreaInfo
             route={selectedRoute}
             restSpotModalOpen={restSpotModalOpen}
@@ -188,7 +192,9 @@ const Init = () => {
             setClickedRestSpot={setClickedRestSpot}
             clickedRouteIndex={clickedRouteIndex}
           />
-        )}
+        </div>
+      )}
+      <div className="box-border h-screen flex-grow">
         <NaverMap
           start={startPlace}
           goal={goalPlace}
