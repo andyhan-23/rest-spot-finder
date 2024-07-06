@@ -58,6 +58,7 @@ const InputSubmitContent = ({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!placeList || placeList.length === 0) return;
     if (e.key === "ArrowDown") {
       setHighlightedIndex(prevIndex => (prevIndex + 1) % placeList.length);
     } else if (e.key === "ArrowUp") {
