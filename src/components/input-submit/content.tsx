@@ -78,13 +78,12 @@ const InputSubmitContent = ({
   }, [isReset]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       <input
         type="text"
         value={place?.name || searchKeyword || ""}
         placeholder={placeholder}
         onChange={handleChange}
-        className={`h-10 w-80 border border-black p-4 placeholder-gray-400 placeholder-opacity-50 ${type === "start" ? "rounded-t border-t border-b-gray-200" : "rounded-b border-b border-t-0"}`}
         onFocus={() => {
           setPlaceholder(inputType.onFocus[type]);
           setModalIsOpen(true);
@@ -93,7 +92,9 @@ const InputSubmitContent = ({
           setPlaceholder(inputType.placeholder[type]);
           setModalIsOpen(false);
         }}
+        className={`h-10 w-80 border border-black p-4 placeholder-gray-400 placeholder-opacity-50 ${type === "start" ? "rounded-t border-t border-b-gray-200" : "rounded-b border-b border-t-0"}`}
       />
+
       {placeList && placeList.length > 0 && searchKeyword && modalIsOpen && (
         <div className="absolute z-50 w-80 rounded-b border border-black border-t-white bg-white">
           {placeList?.map((place, index) => (

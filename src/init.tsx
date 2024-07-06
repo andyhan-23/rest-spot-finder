@@ -121,12 +121,7 @@ const Init = () => {
 
   return (
     <div className="box-border flex overflow-hidden">
-      <div className="relative z-10 box-border flex h-screen w-[25.5em] flex-col bg-white shadow-lg">
-        <div className="w-5.5 absolute left-full top-1/2 h-12 -translate-y-1/2 transform cursor-pointer rounded-r-md border border-r-0 border-gray-300 bg-white hover:shadow-lg">
-          <span className="flex h-full items-center justify-center text-lg font-semibold text-gray-600 hover:text-blue-400">
-            <i className="fas fa-chevron-left"></i>
-          </span>
-        </div>
+      <div className="relative z-10 box-border flex h-screen flex-col shadow-2xl">
         <Title />
         <InputSubmit
           startPlace={startPlace}

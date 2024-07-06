@@ -1,4 +1,5 @@
 import { RecentSearchPropsType } from "@/types";
+import { LocationIcon } from "@/assets/icons";
 
 const RecentSearch = ({
   startPlace,
@@ -23,13 +24,13 @@ const RecentSearch = ({
           검색 기록 삭제
         </span>
       </div>
-      <div className="my-4 mb-12 text-sm font-semibold text-gray-800">
+      <div className="my-4 mb-12  text-sm font-semibold text-gray-800">
         {placeHistory.length > 0 ? (
           placeHistory
             .slice()
             .reverse()
             .map((place, index) => (
-              <p
+              <div
                 key={index}
                 onClick={() => {
                   setClickedPlaceHistory(true);
@@ -38,9 +39,11 @@ const RecentSearch = ({
                 }}
                 className="hover:text-shadow-md mx-2.5 my-4 cursor-pointer hover:text-blue-600"
               >
-                <span className="font-awesome pr-2 text-gray-400 before:content-['\f3c5']"></span>
-                {place.name}
-              </p>
+                <div className="flex flex-row">
+                  <LocationIcon className="h-5 w-5" />
+                  {place.name}
+                </div>
+              </div>
             ))
         ) : (
           <span className="text-shadow-md mx-2.5 my-4">검색 기록이 없습니다.</span>
