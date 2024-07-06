@@ -189,20 +189,19 @@ const Init = () => {
           />
         </div>
       )}
-      <div className="box-border h-screen flex-grow">
-        <NaverMap
-          start={startPlace}
-          goal={goalPlace}
-          routeList={routeList}
-          selectedRoute={selectedRoute}
-          setSelectedRoute={setSelectedRoute}
-          restSpotList={restSpotList}
-          restSpotModalOpen={restSpotModalOpen}
-          setHoveredRestSpot={setHoveredRestSpot}
-          setClickedRestSpot={setClickedRestSpot}
-          clickedRestSpot={clickedRestSpot}
-        />
-      </div>
+
+      <NaverMap
+        start={startPlace}
+        goal={goalPlace}
+        routeList={routeList}
+        selectedRoute={selectedRoute}
+        setSelectedRoute={setSelectedRoute}
+        restSpotList={restSpotList}
+        restSpotModalOpen={restSpotModalOpen}
+        setHoveredRestSpot={setHoveredRestSpot}
+        setClickedRestSpot={setClickedRestSpot}
+        clickedRestSpot={clickedRestSpot}
+      />
     </div>
   );
 };
