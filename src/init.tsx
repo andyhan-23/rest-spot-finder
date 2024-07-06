@@ -48,27 +48,22 @@ const Init = () => {
   const handleClickSearchRoutes = async () => {
     if (startPlace && goalPlace) {
       const routes = await routesRefetch();
-
       setShowRouteList(true);
       setClickedMorePath(false);
       setRouteList(routes.data);
       routes.data && setSelectedRoute(routes.data[0]);
-
       const name = startPlace?.name + " -> " + goalPlace?.name;
       const searchId = routes.data ? routes.data[0].searchId : 0;
       addRouteHistory({ name, searchId, startPlace, goalPlace });
       setHasStartAndGoal(true); // errText
       setClickedPlaceHistory(false); // 최근 검색 장소 클릭 초기화
       setClickedRestSpot(""); // 휴게소 클릭 초기화
-    } else {
-      setHasStartAndGoal(false);
-    }
+    } else setHasStartAndGoal(false);
   };
 
   const handleClickRecentSearch = async () => {
     if (selectedRouteHistory != null && selectedRouteHistory.searchId > 0) {
       const routes = await routesBySearchIdRefetch();
-
       setShowRouteList(true);
       setClickedMorePath(false);
       setRouteList(routes.data);
@@ -127,7 +122,6 @@ const Init = () => {
 
   return (
     <div className="flex h-full">
-      <Logos />
       <div className="flex h-full w-full">
         <div className="flex h-full flex-col">
           <Title />
