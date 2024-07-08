@@ -14,6 +14,7 @@
 - 코어: React, TypeScript
 - 상태관리: React-Query
 - 백엔드: Spring Boot
+- 디자인: Tailwind CSS
 - 배포: AWS
 
 ## 프로젝트 결과물
